@@ -10,7 +10,8 @@
   "seller_name",
   "column_break_qpku",
   "seller_gstin",
-  "contact_details"
+  "contact_details",
+  "is_active"
  ],
  "fields": [
   {
@@ -37,11 +38,17 @@
   {
    "fieldname": "column_break_qpku",
    "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_active",
+   "fieldtype": "Check",
+   "label": "Is Active"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-02-08 11:58:22.850813",
+ "modified": "2025-02-08 16:55:24.185783",
  "modified_by": "Administrator",
  "module": "Utility",
  "name": "Seller",

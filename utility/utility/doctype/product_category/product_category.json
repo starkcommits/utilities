@@ -28,6 +28,7 @@
    "default": "0",
    "fieldname": "is_active",
    "fieldtype": "Check",
+   "in_list_view": 1,
    "label": "Is Active"
   },
   {
@@ -41,7 +42,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-02-08 11:42:43.756933",
+ "modified": "2025-02-08 17:10:46.603222",
  "modified_by": "Administrator",
  "module": "Utility",
  "name": "Product Category",
