@@ -1,0 +1,124 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-02-08 12:21:57.800526",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "product_detail_section",
+  "product_name",
+  "icon",
+  "logo",
+  "column_break_fgdg",
+  "category",
+  "seller",
+  "offers",
+  "column_break_pnvm",
+  "plateform_fees",
+  "processor",
+  "is_active",
+  "bbps_fields_section",
+  "table_oxai"
+ ],
+ "fields": [
+  {
+   "fieldname": "product_name",
+   "fieldtype": "Data",
+   "label": "Product Name"
+  },
+  {
+   "fieldname": "icon",
+   "fieldtype": "Data",
+   "label": "Icon",
+   "options": "URL"
+  },
+  {
+   "fieldname": "logo",
+   "fieldtype": "Data",
+   "label": "Logo",
+   "options": "URL"
+  },
+  {
+   "fieldname": "category",
+   "fieldtype": "Link",
+   "label": "Category",
+   "options": "Product Category"
+  },
+  {
+   "fieldname": "processor",
+   "fieldtype": "Link",
+   "label": "Processor",
+   "options": "Processor"
+  },
+  {
+   "fieldname": "seller",
+   "fieldtype": "Link",
+   "label": "Seller",
+   "options": "Seller"
+  },
+  {
+   "fieldname": "offers",
+   "fieldtype": "Link",
+   "label": "Offers",
+   "options": "Offers"
+  },
+  {
+   "fieldname": "plateform_fees",
+   "fieldtype": "Currency",
+   "label": "Plateform Fees"
+  },
+  {
+   "fieldname": "product_detail_section",
+   "fieldtype": "Section Break",
+   "label": "Product Detail"
+  },
+  {
+   "fieldname": "column_break_fgdg",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_pnvm",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "bbps_fields_section",
+   "fieldtype": "Section Break",
+   "label": "BBPS Fields"
+  },
+  {
+   "fieldname": "table_oxai",
+   "fieldtype": "Table",
+   "options": "ADDON Config"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_active",
+   "fieldtype": "Check",
+   "label": "Is Active"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-02-08 12:38:50.703626",
+ "modified_by": "Administrator",
+ "module": "Utility",
+ "name": "Product",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

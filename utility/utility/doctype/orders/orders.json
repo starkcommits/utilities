@@ -1,0 +1,140 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-02-08 13:11:29.989208",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "order_id",
+  "product_name",
+  "mobile_number",
+  "channel",
+  "column_break_gwbg",
+  "product_category",
+  "order_amount",
+  "transaction_id",
+  "transaction_remark",
+  "read_only_pbyo",
+  "column_break_sawd",
+  "channel_partner",
+  "processor",
+  "order_status",
+  "order_remark",
+  "section_break_pmwc",
+  "table_qosh"
+ ],
+ "fields": [
+  {
+   "fieldname": "order_id",
+   "fieldtype": "Data",
+   "label": "Order ID"
+  },
+  {
+   "fieldname": "mobile_number",
+   "fieldtype": "Data",
+   "label": "Mobile Number"
+  },
+  {
+   "fieldname": "channel_partner",
+   "fieldtype": "Data",
+   "label": "Channel Partner"
+  },
+  {
+   "fieldname": "product_name",
+   "fieldtype": "Link",
+   "label": "Product Name",
+   "options": "Product"
+  },
+  {
+   "fieldname": "product_category",
+   "fieldtype": "Link",
+   "label": "Product Category",
+   "options": "Product Category"
+  },
+  {
+   "fieldname": "channel",
+   "fieldtype": "Data",
+   "label": "Channel"
+  },
+  {
+   "fieldname": "order_amount",
+   "fieldtype": "Currency",
+   "label": "Order Amount"
+  },
+  {
+   "fieldname": "order_status",
+   "fieldtype": "Data",
+   "label": "Order Status"
+  },
+  {
+   "fieldname": "order_remark",
+   "fieldtype": "Data",
+   "label": "Order Remark"
+  },
+  {
+   "fieldname": "transaction_id",
+   "fieldtype": "Link",
+   "label": "Transaction Id",
+   "options": "Payment Transaction Logs"
+  },
+  {
+   "fetch_from": "transaction_id.status",
+   "fieldname": "read_only_pbyo",
+   "fieldtype": "Read Only",
+   "label": "Transaction Status"
+  },
+  {
+   "fetch_from": "transaction_id.transaction_remark",
+   "fieldname": "transaction_remark",
+   "fieldtype": "Read Only",
+   "label": "Transaction Remark"
+  },
+  {
+   "fieldname": "processor",
+   "fieldtype": "Link",
+   "label": "Processor",
+   "options": "Processor"
+  },
+  {
+   "fieldname": "section_break_pmwc",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "table_qosh",
+   "fieldtype": "Table",
+   "options": "ADDON Config"
+  },
+  {
+   "fieldname": "column_break_gwbg",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_sawd",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-02-08 13:18:40.732251",
+ "modified_by": "Administrator",
+ "module": "Utility",
+ "name": "Orders",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

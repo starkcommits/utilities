@@ -1,0 +1,56 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:discount_fee_type",
+ "creation": "2025-02-08 12:49:06.813894",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "discount_fee_type",
+  "column_break_qhac",
+  "discount"
+ ],
+ "fields": [
+  {
+   "fieldname": "discount_fee_type",
+   "fieldtype": "Data",
+   "label": "Discount Fee Type",
+   "unique": 1
+  },
+  {
+   "fieldname": "column_break_qhac",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "discount",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Discount"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-02-08 12:54:08.698619",
+ "modified_by": "Administrator",
+ "module": "Utility",
+ "name": "Discount Fee Types",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

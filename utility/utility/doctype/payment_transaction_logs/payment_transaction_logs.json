@@ -1,0 +1,146 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-02-08 13:02:57.365901",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "transaction_id",
+  "channel_partner",
+  "product_name",
+  "channel",
+  "transaction_remark",
+  "column_break_ohtr",
+  "order_amount",
+  "discount",
+  "transaction_amount",
+  "gst",
+  "flag",
+  "column_break_gtii",
+  "amended_from",
+  "transaction_type",
+  "status",
+  "reversed_on",
+  "reversed_remark"
+ ],
+ "fields": [
+  {
+   "fieldname": "transaction_id",
+   "fieldtype": "Data",
+   "label": "Transaction Id"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Payment Transaction Logs",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "order_amount",
+   "fieldtype": "Currency",
+   "label": "Order Amount"
+  },
+  {
+   "fieldname": "channel_partner",
+   "fieldtype": "Link",
+   "label": "Channel Partner",
+   "options": "Channel Partner"
+  },
+  {
+   "fieldname": "product_name",
+   "fieldtype": "Link",
+   "label": "Product Name",
+   "options": "Product"
+  },
+  {
+   "fieldname": "discount",
+   "fieldtype": "Data",
+   "label": "Discount"
+  },
+  {
+   "fieldname": "transaction_amount",
+   "fieldtype": "Currency",
+   "label": "Transaction Amount"
+  },
+  {
+   "fieldname": "gst",
+   "fieldtype": "Data",
+   "label": "Transaction GST"
+  },
+  {
+   "fieldname": "channel",
+   "fieldtype": "Data",
+   "label": "Channel"
+  },
+  {
+   "fieldname": "column_break_ohtr",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_gtii",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "transaction_type",
+   "fieldtype": "Select",
+   "label": "Transaction Type",
+   "options": "Debit\nCredit"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Successful\nProcessing\nReversed"
+  },
+  {
+   "fieldname": "reversed_on",
+   "fieldtype": "Datetime",
+   "label": "Reversed On"
+  },
+  {
+   "fieldname": "reversed_remark",
+   "fieldtype": "Data",
+   "label": "Reversed Remark"
+  },
+  {
+   "fieldname": "flag",
+   "fieldtype": "Data",
+   "label": "Flag"
+  },
+  {
+   "fieldname": "transaction_remark",
+   "fieldtype": "Data",
+   "label": "Transaction Remark"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2025-02-08 13:16:25.822300",
+ "modified_by": "Administrator",
+ "module": "Utility",
+ "name": "Payment Transaction Logs",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "queue_in_background": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

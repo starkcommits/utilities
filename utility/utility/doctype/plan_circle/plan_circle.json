@@ -1,0 +1,57 @@
+{
+ "actions": [],
+ "allow_import": 1,
+ "allow_rename": 1,
+ "autoname": "field:circle_id",
+ "creation": "2025-02-08 11:31:51.286215",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "circle_id",
+  "column_break_sfsf",
+  "cirlce_name"
+ ],
+ "fields": [
+  {
+   "fieldname": "circle_id",
+   "fieldtype": "Data",
+   "label": "Circle ID",
+   "unique": 1
+  },
+  {
+   "fieldname": "column_break_sfsf",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "cirlce_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Cirlce Name"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-02-08 11:36:53.593432",
+ "modified_by": "Administrator",
+ "module": "Utility",
+ "name": "Plan Circle",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

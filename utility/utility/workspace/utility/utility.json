@@ -1,0 +1,116 @@
+{
+ "charts": [
+  {
+   "chart_name": "Transaction Count",
+   "label": "Total Transaction"
+  }
+ ],
+ "content": "[{\"id\":\"AaONyBTHa4\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Utility Dashboard</span>\",\"col\":12}},{\"id\":\"V57crU_Xif\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Total Recharge\",\"col\":3}},{\"id\":\"e2Hcjq2GYy\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Total Product\",\"col\":3}},{\"id\":\"ttxo85DbDh\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Total Plan\",\"col\":3}},{\"id\":\"ZE2jOxXQtN\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Total Processor\",\"col\":3}},{\"id\":\"IfBKtIXfPu\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"fzjLJI6VkP\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Your Shortcuts</b></span>\",\"col\":12}},{\"id\":\"xdPJUQoXKC\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Add Plan\",\"col\":3}},{\"id\":\"71Sl7Mm3uZ\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Add Product\",\"col\":3}},{\"id\":\"WDvsOI7Aue\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Add Discount\",\"col\":3}},{\"id\":\"Er9z_SZgN8\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Add Offer\",\"col\":3}},{\"id\":\"RzAyl09ZwI\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Add Processor\",\"col\":3}},{\"id\":\"HqgtKUQSi8\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Add Channel Partner\",\"col\":3}},{\"id\":\"HkdUrwnQLi\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Add Seller\",\"col\":3}},{\"id\":\"Aynme3EaHG\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Add Plateform Fee\",\"col\":3}},{\"id\":\"Zzii6i-Jy9\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"Ny1ikcKn3A\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Graphical Data</b></span>\",\"col\":12}},{\"id\":\"4KALfTcTB0\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Total Transaction\",\"col\":12}},{\"id\":\"ScDgDFuhOb\",\"type\":\"spacer\",\"data\":{\"col\":12}}]",
+ "creation": "2025-02-08 14:44:32.341634",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "retail",
+ "idx": 0,
+ "indicator_color": "green",
+ "is_hidden": 0,
+ "label": "Utility",
+ "links": [],
+ "modified": "2025-02-08 15:39:49.004776",
+ "modified_by": "Administrator",
+ "module": "Utility",
+ "name": "Utility",
+ "number_cards": [
+  {
+   "label": "Total Plan",
+   "number_card_name": "Plan Count"
+  },
+  {
+   "label": "Total Recharge",
+   "number_card_name": "Orders"
+  },
+  {
+   "label": "Total Processor",
+   "number_card_name": "Processor Count"
+  },
+  {
+   "label": "Total Product",
+   "number_card_name": "Product Count"
+  }
+ ],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 33.0,
+ "shortcuts": [
+  {
+   "color": "Grey",
+   "doc_view": "New",
+   "label": "Add Seller",
+   "link_to": "Seller",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "New",
+   "label": "Add Processor",
+   "link_to": "Processor",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "New",
+   "label": "Add Plan",
+   "link_to": "Plans",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "New",
+   "label": "Add Product",
+   "link_to": "Product",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "New",
+   "label": "Add Channel Partner",
+   "link_to": "Channel Partner",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "New",
+   "label": "Add Plateform Fee",
+   "link_to": "Plateform Fee Types",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "New",
+   "label": "Add Discount",
+   "link_to": "Discount Fee Types",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "New",
+   "label": "Add Offer",
+   "link_to": "Offers",
+   "stats_filter": "[]",
+   "type": "DocType"
+  }
+ ],
+ "title": "Utility"
+}

@@ -1,0 +1,84 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-02-08 12:56:25.893896",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "allowed_channel_section",
+  "is_dashboard",
+  "column_break_mfpd",
+  "is_api",
+  "column_break_ilvy",
+  "is_mobile",
+  "product_pricing_section",
+  "table_nhbu"
+ ],
+ "fields": [
+  {
+   "fieldname": "allowed_channel_section",
+   "fieldtype": "Section Break",
+   "label": "Allowed Channel"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_dashboard",
+   "fieldtype": "Check",
+   "label": "Is Dashboard"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_api",
+   "fieldtype": "Check",
+   "label": "Is API"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_mobile",
+   "fieldtype": "Check",
+   "label": "Is Mobile"
+  },
+  {
+   "fieldname": "column_break_mfpd",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_ilvy",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "product_pricing_section",
+   "fieldtype": "Section Break",
+   "label": "Product Pricing"
+  },
+  {
+   "fieldname": "table_nhbu",
+   "fieldtype": "Table",
+   "options": "Product Pricing"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-02-08 12:57:56.971591",
+ "modified_by": "Administrator",
+ "module": "Utility",
+ "name": "Channel Partner",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

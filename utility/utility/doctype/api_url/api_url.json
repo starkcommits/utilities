@@ -1,0 +1,57 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:key_name",
+ "creation": "2025-02-08 12:03:14.049337",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "key_name",
+  "column_break_dwty",
+  "api_key",
+  "column_break_kldy",
+  "secret"
+ ],
+ "fields": [
+  {
+   "fieldname": "api_key",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "API Key"
+  },
+  {
+   "fieldname": "secret",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Secret"
+  },
+  {
+   "fieldname": "column_break_kldy",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "key_name",
+   "fieldtype": "Data",
+   "label": "Key Name",
+   "unique": 1
+  },
+  {
+   "fieldname": "column_break_dwty",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2025-02-08 12:05:17.617064",
+ "modified_by": "Administrator",
+ "module": "Utility",
+ "name": "API Url",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

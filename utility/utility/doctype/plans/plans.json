@@ -1,0 +1,98 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:plan_name",
+ "creation": "2025-02-08 12:17:50.926831",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "plan_name",
+  "plan_category",
+  "column_break_vwmz",
+  "circle",
+  "amount",
+  "column_break_pejm",
+  "benefits",
+  "column_break_biwg",
+  "banner",
+  "is_active"
+ ],
+ "fields": [
+  {
+   "fieldname": "plan_name",
+   "fieldtype": "Data",
+   "label": "Plan Name",
+   "unique": 1
+  },
+  {
+   "fieldname": "plan_category",
+   "fieldtype": "Link",
+   "label": "Category",
+   "options": "Plan Category"
+  },
+  {
+   "fieldname": "circle",
+   "fieldtype": "Link",
+   "label": "Circle",
+   "options": "Plan Circle"
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "label": "Amount"
+  },
+  {
+   "fieldname": "benefits",
+   "fieldtype": "Data",
+   "label": "Benefits"
+  },
+  {
+   "fieldname": "banner",
+   "fieldtype": "Attach Image",
+   "label": "Banner"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_active",
+   "fieldtype": "Check",
+   "label": "Is Active"
+  },
+  {
+   "fieldname": "column_break_vwmz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_pejm",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_biwg",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-02-08 12:21:14.719479",
+ "modified_by": "Administrator",
+ "module": "Utility",
+ "name": "Plans",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
