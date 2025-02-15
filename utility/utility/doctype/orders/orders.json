@@ -1,6 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "format:ORD{SS}{HH}{MM}{###}",
  "creation": "2025-02-08 13:11:29.989208",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -36,8 +37,9 @@
   },
   {
    "fieldname": "channel_partner",
-   "fieldtype": "Data",
-   "label": "Channel Partner"
+   "fieldtype": "Link",
+   "label": "Channel Partner",
+   "options": "Channel Partner"
   },
   {
    "fieldname": "product_name",
@@ -74,6 +76,7 @@
   {
    "fieldname": "transaction_id",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Transaction Id",
    "options": "Payment Transaction Logs"
   },
@@ -115,10 +118,11 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-02-08 13:18:40.732251",
+ "modified": "2025-02-14 17:50:33.320035",
  "modified_by": "Administrator",
  "module": "Utility",
  "name": "Orders",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {

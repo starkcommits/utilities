@@ -1,17 +1,19 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "hash",
  "creation": "2025-02-08 13:02:57.365901",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "transaction_id",
   "channel_partner",
   "product_name",
+  "product_category",
   "channel",
   "transaction_remark",
   "column_break_ohtr",
   "order_amount",
+  "order_id",
   "discount",
   "transaction_amount",
   "gst",
@@ -24,11 +26,6 @@
   "reversed_remark"
  ],
  "fields": [
-  {
-   "fieldname": "transaction_id",
-   "fieldtype": "Data",
-   "label": "Transaction Id"
-  },
   {
    "fieldname": "amended_from",
    "fieldtype": "Link",
@@ -115,15 +112,29 @@
    "fieldname": "transaction_remark",
    "fieldtype": "Data",
    "label": "Transaction Remark"
+  },
+  {
+   "fetch_from": "product_name.category",
+   "fieldname": "product_category",
+   "fieldtype": "Read Only",
+   "label": "Product Category",
+   "options": "Product"
+  },
+  {
+   "fieldname": "order_id",
+   "fieldtype": "Link",
+   "label": "Order ID",
+   "options": "Orders"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-02-08 13:16:25.822300",
+ "modified": "2025-02-14 14:04:51.005320",
  "modified_by": "Administrator",
  "module": "Utility",
  "name": "Payment Transaction Logs",
+ "naming_rule": "Random",
  "owner": "Administrator",
  "permissions": [
   {
@@ -142,5 +153,6 @@
  "queue_in_background": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
- "states": []
+ "states": [],
+ "track_changes": 1
 }

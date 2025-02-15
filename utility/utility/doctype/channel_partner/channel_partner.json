@@ -1,6 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "field:company_name",
  "creation": "2025-02-08 12:56:25.893896",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -11,8 +12,16 @@
   "is_api",
   "column_break_ilvy",
   "is_mobile",
+  "profile_section",
+  "company_name",
+  "gstin",
+  "column_break_uagn",
+  "website",
+  "contact_details",
   "product_pricing_section",
-  "table_nhbu"
+  "table_nhbu",
+  "contacts_section",
+  "table_ibau"
  ],
  "fields": [
   {
@@ -55,14 +64,56 @@
    "fieldname": "table_nhbu",
    "fieldtype": "Table",
    "options": "Product Pricing"
+  },
+  {
+   "fieldname": "profile_section",
+   "fieldtype": "Section Break",
+   "label": "Profile"
+  },
+  {
+   "fieldname": "company_name",
+   "fieldtype": "Data",
+   "label": "Company Name",
+   "unique": 1
+  },
+  {
+   "fieldname": "gstin",
+   "fieldtype": "Data",
+   "label": "GSTIN"
+  },
+  {
+   "fieldname": "column_break_uagn",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "website",
+   "fieldtype": "Data",
+   "label": "Website",
+   "options": "URL"
+  },
+  {
+   "fieldname": "contact_details",
+   "fieldtype": "Data",
+   "label": "Contact Details"
+  },
+  {
+   "fieldname": "contacts_section",
+   "fieldtype": "Section Break",
+   "label": "Contacts"
+  },
+  {
+   "fieldname": "table_ibau",
+   "fieldtype": "Table",
+   "options": "Team"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-02-08 12:57:56.971591",
+ "modified": "2025-02-14 14:46:20.320975",
  "modified_by": "Administrator",
  "module": "Utility",
  "name": "Channel Partner",
+ "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [
   {

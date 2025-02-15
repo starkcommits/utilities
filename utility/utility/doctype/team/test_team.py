@@ -5,5 +5,5 @@
 from frappe.tests.utils import FrappeTestCase
 
 
-class TestPlateformFeeTypes(FrappeTestCase):
+class TestTeam(FrappeTestCase):
 	pass

@@ -7,6 +7,8 @@
  "engine": "InnoDB",
  "field_order": [
   "category_name",
+  "column_break_kwzp",
+  "category_type",
   "column_break_jsvj",
   "is_active"
  ],
@@ -27,11 +29,21 @@
   {
    "fieldname": "column_break_jsvj",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "category_type",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Category Type"
+  },
+  {
+   "fieldname": "column_break_kwzp",
+   "fieldtype": "Column Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-02-08 11:25:40.655906",
+ "modified": "2025-02-10 16:32:05.213678",
  "modified_by": "Administrator",
  "module": "Utility",
  "name": "Plan Category",

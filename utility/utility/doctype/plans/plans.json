@@ -1,29 +1,27 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "field:plan_name",
+ "autoname": "format:{operator}_{amount}",
  "creation": "2025-02-08 12:17:50.926831",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "plan_name",
+  "operator",
+  "amount",
   "plan_category",
   "column_break_vwmz",
   "circle",
-  "amount",
+  "validity",
   "column_break_pejm",
   "benefits",
+  "data_gb",
   "column_break_biwg",
   "banner",
-  "is_active"
+  "is_active",
+  "attributes_section",
+  "attributes"
  ],
  "fields": [
-  {
-   "fieldname": "plan_name",
-   "fieldtype": "Data",
-   "label": "Plan Name",
-   "unique": 1
-  },
   {
    "fieldname": "plan_category",
    "fieldtype": "Link",
@@ -38,12 +36,14 @@
   },
   {
    "fieldname": "amount",
-   "fieldtype": "Currency",
+   "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Amount"
   },
   {
    "fieldname": "benefits",
-   "fieldtype": "Data",
+   "fieldtype": "Small Text",
+   "in_list_view": 1,
    "label": "Benefits"
   },
   {
@@ -68,15 +68,44 @@
   {
    "fieldname": "column_break_biwg",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "data_gb",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Data (GB)"
+  },
+  {
+   "fieldname": "validity",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Validity"
+  },
+  {
+   "fieldname": "operator",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Operator",
+   "options": "Product"
+  },
+  {
+   "fieldname": "attributes_section",
+   "fieldtype": "Section Break",
+   "label": "Attributes"
+  },
+  {
+   "fieldname": "attributes",
+   "fieldtype": "Table",
+   "options": "Attributes"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-02-08 12:21:14.719479",
+ "modified": "2025-02-12 17:32:54.464481",
  "modified_by": "Administrator",
  "module": "Utility",
  "name": "Plans",
- "naming_rule": "By fieldname",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {

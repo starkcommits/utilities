@@ -1,6 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "field:product_name",
  "creation": "2025-02-08 12:21:57.800526",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -14,7 +15,6 @@
   "seller",
   "offers",
   "column_break_pnvm",
-  "plateform_fees",
   "processor",
   "is_active",
   "bbps_fields_section",
@@ -24,7 +24,8 @@
   {
    "fieldname": "product_name",
    "fieldtype": "Data",
-   "label": "Product Name"
+   "label": "Product Name",
+   "unique": 1
   },
   {
    "fieldname": "icon",
@@ -41,6 +42,7 @@
   {
    "fieldname": "category",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Category",
    "options": "Product Category"
   },
@@ -61,11 +63,6 @@
    "fieldtype": "Link",
    "label": "Offers",
    "options": "Offers"
-  },
-  {
-   "fieldname": "plateform_fees",
-   "fieldtype": "Currency",
-   "label": "Plateform Fees"
   },
   {
    "fieldname": "product_detail_section",
@@ -99,10 +96,11 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-02-08 12:38:50.703626",
+ "modified": "2025-02-14 14:50:03.099702",
  "modified_by": "Administrator",
  "module": "Utility",
  "name": "Product",
+ "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [
   {
