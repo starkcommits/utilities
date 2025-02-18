@@ -9,14 +9,15 @@
   "product_detail_section",
   "product_name",
   "icon",
-  "logo",
   "column_break_fgdg",
   "category",
   "seller",
-  "offers",
   "column_break_pnvm",
-  "processor",
+  "logo",
+  "offers",
   "is_active",
+  "processors_section",
+  "table_tuna",
   "bbps_fields_section",
   "table_oxai"
  ],
@@ -45,12 +46,6 @@
    "in_list_view": 1,
    "label": "Category",
    "options": "Product Category"
-  },
-  {
-   "fieldname": "processor",
-   "fieldtype": "Link",
-   "label": "Processor",
-   "options": "Processor"
   },
   {
    "fieldname": "seller",
@@ -92,11 +87,21 @@
    "fieldname": "is_active",
    "fieldtype": "Check",
    "label": "Is Active"
+  },
+  {
+   "fieldname": "processors_section",
+   "fieldtype": "Section Break",
+   "label": "Processors"
+  },
+  {
+   "fieldname": "table_tuna",
+   "fieldtype": "Table",
+   "options": "Processor Table"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-02-14 14:50:03.099702",
+ "modified": "2025-02-18 10:36:23.131702",
  "modified_by": "Administrator",
  "module": "Utility",
  "name": "Product",

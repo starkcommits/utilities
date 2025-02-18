@@ -9,16 +9,19 @@
   "profile_section",
   "processor_name",
   "gstin",
+  "base_url",
   "column_break_epju",
   "contact_details",
   "logo__icon",
   "is_active",
+  "api_methods_section",
+  "table_myyq",
   "api_config_section",
   "table_rbsa",
-  "webhooks_section",
-  "table_guhr",
   "additional_config_section",
-  "table_bnzm"
+  "table_bnzm",
+  "provider_detail_section",
+  "table_pvfl"
  ],
  "fields": [
   {
@@ -39,6 +42,7 @@
   {
    "fieldname": "contact_details",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Contact Details"
   },
   {
@@ -62,16 +66,6 @@
    "options": "API Url"
   },
   {
-   "fieldname": "webhooks_section",
-   "fieldtype": "Section Break",
-   "label": "Webhooks"
-  },
-  {
-   "fieldname": "table_guhr",
-   "fieldtype": "Table",
-   "options": "Webhook"
-  },
-  {
    "default": "0",
    "fieldname": "is_active",
    "fieldtype": "Check",
@@ -86,11 +80,37 @@
    "fieldname": "table_bnzm",
    "fieldtype": "Table",
    "options": "ADDON Config"
+  },
+  {
+   "fieldname": "base_url",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Base Url"
+  },
+  {
+   "fieldname": "api_methods_section",
+   "fieldtype": "Section Break",
+   "label": "API Methods"
+  },
+  {
+   "fieldname": "table_myyq",
+   "fieldtype": "Table",
+   "options": "API Methods"
+  },
+  {
+   "fieldname": "provider_detail_section",
+   "fieldtype": "Section Break",
+   "label": "Provider Detail"
+  },
+  {
+   "fieldname": "table_pvfl",
+   "fieldtype": "Table",
+   "options": "Provider Detail"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-02-08 12:16:44.050029",
+ "modified": "2025-02-18 11:32:58.924121",
  "modified_by": "Administrator",
  "module": "Utility",
  "name": "Processor",

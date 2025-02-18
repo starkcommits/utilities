@@ -33,6 +33,7 @@
   {
    "fieldname": "key_name",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Key Name",
    "unique": 1
   },
@@ -44,7 +45,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-02-08 12:05:17.617064",
+ "modified": "2025-02-18 11:02:13.150644",
  "modified_by": "Administrator",
  "module": "Utility",
  "name": "API Url",
