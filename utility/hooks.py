@@ -137,12 +137,21 @@ app_license = "mit"
 # ---------------
 # Hook on document methods and events
 
-doc_events = {
-	"Orders": {
-		"after_insert": "utility.api.make_an_order"
-	}
-}
+# doc_events = {
+# 	"Orders": {
+# 		"after_insert": "utility.api.make_an_order"
+# 	}
+# }
 
+api = {
+	"methods": [
+		"utility.get_provider.get_provider_detail",
+		"utility.fetch_plan.get_plans",
+		"utility.api.make_an_order",
+		"utility.api.topup",
+		"utility.api.bulk_recharge"
+	]
+}
 # Scheduled Tasks
 # ---------------
 

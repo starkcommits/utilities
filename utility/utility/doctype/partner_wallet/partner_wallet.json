@@ -1,0 +1,71 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:{YYYY}{MM}{#######}",
+ "creation": "2025-02-18 17:46:58.042981",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "channel_partner",
+  "column_break_gccq",
+  "balance",
+  "including_section",
+  "allowed_category"
+ ],
+ "fields": [
+  {
+   "fieldname": "channel_partner",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Channel Partner",
+   "options": "Channel Partner"
+  },
+  {
+   "fieldname": "balance",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Balance"
+  },
+  {
+   "fieldname": "column_break_gccq",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "including_section",
+   "fieldtype": "Section Break",
+   "label": "Including "
+  },
+  {
+   "fieldname": "allowed_category",
+   "fieldtype": "Table",
+   "label": "Allowed Category",
+   "options": "Wallet Including Table"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-02-19 14:47:58.992431",
+ "modified_by": "Administrator",
+ "module": "Utility",
+ "name": "Partner Wallet",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

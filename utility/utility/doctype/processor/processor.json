@@ -15,13 +15,13 @@
   "logo__icon",
   "is_active",
   "api_methods_section",
-  "table_myyq",
+  "api_methods",
   "api_config_section",
-  "table_rbsa",
+  "api_config",
   "additional_config_section",
-  "table_bnzm",
+  "configs",
   "provider_detail_section",
-  "table_pvfl"
+  "providers"
  ],
  "fields": [
   {
@@ -61,11 +61,6 @@
    "label": "API Config"
   },
   {
-   "fieldname": "table_rbsa",
-   "fieldtype": "Table",
-   "options": "API Url"
-  },
-  {
    "default": "0",
    "fieldname": "is_active",
    "fieldtype": "Check",
@@ -75,11 +70,6 @@
    "fieldname": "additional_config_section",
    "fieldtype": "Section Break",
    "label": "Additional Config"
-  },
-  {
-   "fieldname": "table_bnzm",
-   "fieldtype": "Table",
-   "options": "ADDON Config"
   },
   {
    "fieldname": "base_url",
@@ -93,24 +83,38 @@
    "label": "API Methods"
   },
   {
-   "fieldname": "table_myyq",
-   "fieldtype": "Table",
-   "options": "API Methods"
-  },
-  {
    "fieldname": "provider_detail_section",
    "fieldtype": "Section Break",
    "label": "Provider Detail"
   },
   {
-   "fieldname": "table_pvfl",
+   "fieldname": "providers",
    "fieldtype": "Table",
+   "label": "Providers",
    "options": "Provider Detail"
+  },
+  {
+   "fieldname": "api_config",
+   "fieldtype": "Table",
+   "label": "Api Config",
+   "options": "API Url"
+  },
+  {
+   "fieldname": "configs",
+   "fieldtype": "Table",
+   "label": "Configs",
+   "options": "ADDON Config"
+  },
+  {
+   "fieldname": "api_methods",
+   "fieldtype": "Table",
+   "label": "Api Methods",
+   "options": "API Methods"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-02-18 11:32:58.924121",
+ "modified": "2025-02-18 12:37:41.332211",
  "modified_by": "Administrator",
  "module": "Utility",
  "name": "Processor",

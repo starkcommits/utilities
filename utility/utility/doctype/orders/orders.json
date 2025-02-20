@@ -6,12 +6,11 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "order_id",
   "product_name",
   "mobile_number",
+  "product_category",
   "channel",
   "column_break_gwbg",
-  "product_category",
   "order_amount",
   "transaction_id",
   "transaction_remark",
@@ -25,11 +24,6 @@
   "table_qosh"
  ],
  "fields": [
-  {
-   "fieldname": "order_id",
-   "fieldtype": "Data",
-   "label": "Order ID"
-  },
   {
    "fieldname": "mobile_number",
    "fieldtype": "Data",
@@ -48,8 +42,9 @@
    "options": "Product"
   },
   {
+   "fetch_from": "product_name.category",
    "fieldname": "product_category",
-   "fieldtype": "Link",
+   "fieldtype": "Read Only",
    "label": "Product Category",
    "options": "Product Category"
   },
@@ -118,7 +113,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-02-14 17:50:33.320035",
+ "modified": "2025-02-19 14:48:16.274732",
  "modified_by": "Administrator",
  "module": "Utility",
  "name": "Orders",
@@ -140,5 +135,6 @@
  ],
  "sort_field": "modified",
  "sort_order": "DESC",
- "states": []
+ "states": [],
+ "track_changes": 1
 }

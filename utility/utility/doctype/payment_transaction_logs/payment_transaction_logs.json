@@ -16,14 +16,11 @@
   "order_id",
   "discount",
   "transaction_amount",
-  "gst",
-  "flag",
   "column_break_gtii",
   "amended_from",
   "transaction_type",
   "status",
-  "reversed_on",
-  "reversed_remark"
+  "closing_balance"
  ],
  "fields": [
   {
@@ -38,7 +35,7 @@
   },
   {
    "fieldname": "order_amount",
-   "fieldtype": "Currency",
+   "fieldtype": "Float",
    "label": "Order Amount"
   },
   {
@@ -60,13 +57,8 @@
   },
   {
    "fieldname": "transaction_amount",
-   "fieldtype": "Currency",
+   "fieldtype": "Float",
    "label": "Transaction Amount"
-  },
-  {
-   "fieldname": "gst",
-   "fieldtype": "Data",
-   "label": "Transaction GST"
   },
   {
    "fieldname": "channel",
@@ -85,28 +77,13 @@
    "fieldname": "transaction_type",
    "fieldtype": "Select",
    "label": "Transaction Type",
-   "options": "Debit\nCredit"
+   "options": "Credit (Top-up)\nCredit Reversal\nDebit (Hold)\nDebit (Final)"
   },
   {
    "fieldname": "status",
    "fieldtype": "Select",
    "label": "Status",
-   "options": "Successful\nProcessing\nReversed"
-  },
-  {
-   "fieldname": "reversed_on",
-   "fieldtype": "Datetime",
-   "label": "Reversed On"
-  },
-  {
-   "fieldname": "reversed_remark",
-   "fieldtype": "Data",
-   "label": "Reversed Remark"
-  },
-  {
-   "fieldname": "flag",
-   "fieldtype": "Data",
-   "label": "Flag"
+   "options": "Successful\nPending\nFailed\nReversed"
   },
   {
    "fieldname": "transaction_remark",
@@ -125,12 +102,17 @@
    "fieldtype": "Link",
    "label": "Order ID",
    "options": "Orders"
+  },
+  {
+   "fieldname": "closing_balance",
+   "fieldtype": "Float",
+   "label": "Closing Balance"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-02-14 14:04:51.005320",
+ "modified": "2025-02-19 17:29:55.209525",
  "modified_by": "Administrator",
  "module": "Utility",
  "name": "Payment Transaction Logs",

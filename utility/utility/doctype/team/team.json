@@ -16,14 +16,16 @@
  "fields": [
   {
    "fieldname": "person_name",
-   "fieldtype": "Data",
+   "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Person Name",
+   "options": "User",
    "unique": 1
   },
   {
+   "fetch_from": "person_name.email",
    "fieldname": "email",
-   "fieldtype": "Data",
+   "fieldtype": "Read Only",
    "in_list_view": 1,
    "label": "Email",
    "options": "Email"
@@ -48,7 +50,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-02-08 18:59:54.180340",
+ "modified": "2025-02-20 13:59:42.420844",
  "modified_by": "Administrator",
  "module": "Utility",
  "name": "Team",
