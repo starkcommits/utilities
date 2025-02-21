@@ -6,29 +6,28 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "allowed_channel_section",
-  "is_dashboard",
+  "overview",
+  "partner_wallet",
   "column_break_mfpd",
+  "wallet_balance",
+  "column_break_dauh",
   "is_api",
-  "column_break_ilvy",
   "is_mobile",
+  "is_dashboard",
   "profile_section",
   "company_name",
   "gstin",
   "column_break_uagn",
   "website",
+  "column_break_appl",
   "contact_details",
+  "status",
   "product_pricing_section",
   "table_nhbu",
   "contacts_section",
   "table_ibau"
  ],
  "fields": [
-  {
-   "fieldname": "allowed_channel_section",
-   "fieldtype": "Section Break",
-   "label": "Allowed Channel"
-  },
   {
    "default": "0",
    "fieldname": "is_dashboard",
@@ -49,10 +48,6 @@
   },
   {
    "fieldname": "column_break_mfpd",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "column_break_ilvy",
    "fieldtype": "Column Break"
   },
   {
@@ -105,11 +100,47 @@
    "fieldname": "table_ibau",
    "fieldtype": "Table",
    "options": "Team"
+  },
+  {
+   "fieldname": "partner_wallet",
+   "fieldtype": "Link",
+   "label": "Partner Wallet",
+   "options": "Partner Wallet"
+  },
+  {
+   "fetch_from": "partner_wallet.balance",
+   "fieldname": "wallet_balance",
+   "fieldtype": "Data",
+   "in_filter": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Wallet Balance",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_dauh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "Manage channel partners, configurations and pricing configurations.",
+   "fieldname": "overview",
+   "fieldtype": "Section Break",
+   "label": "PARTNER PROFILE OVERIVEW"
+  },
+  {
+   "fieldname": "column_break_appl",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Active\nBlocked"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-02-14 14:46:20.320975",
+ "modified": "2025-02-21 12:00:08.012335",
  "modified_by": "Administrator",
  "module": "Utility",
  "name": "Channel Partner",

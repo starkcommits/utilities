@@ -9,6 +9,8 @@
   "channel_partner",
   "column_break_gccq",
   "balance",
+  "column_break_axcs",
+  "status",
   "including_section",
   "allowed_category"
  ],
@@ -40,11 +42,21 @@
    "fieldtype": "Table",
    "label": "Allowed Category",
    "options": "Wallet Including Table"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Freeze\nActive"
+  },
+  {
+   "fieldname": "column_break_axcs",
+   "fieldtype": "Column Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-02-19 14:47:58.992431",
+ "modified": "2025-02-21 11:54:12.604021",
  "modified_by": "Administrator",
  "module": "Utility",
  "name": "Partner Wallet",
