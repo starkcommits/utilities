@@ -50,7 +50,7 @@ def update_wallet(doc, method):
             )
         
         # Case 2: When Transaction is Reversed
-        elif doc.status == "Reversed":
+        elif doc.status == "Reversed" or (doc.status == "Completed" and doc.product_name == "Wallet Top Up"):
             partner_wallet.balance += doc.transaction_amount
             partner_wallet.save(ignore_permissions=True)
             
@@ -61,7 +61,7 @@ def update_wallet(doc, method):
                 {"closing_balance": partner_wallet.balance},
                 update_modified=False
             )
-        
+
         frappe.db.commit()
         
     finally:

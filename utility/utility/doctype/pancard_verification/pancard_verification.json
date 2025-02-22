@@ -1,0 +1,242 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:test{####}",
+ "creation": "2025-02-21 22:40:08.695825",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "request_detail_section",
+  "pan_card_number",
+  "response_detail_section",
+  "request_id",
+  "result_section",
+  "pan_number",
+  "pan_type",
+  "aadhaar_number",
+  "aadhaar_linked",
+  "date_of_birth",
+  "mobile_number",
+  "email_id",
+  "pan_status",
+  "pan_allotment_date",
+  "column_break_rebt",
+  "full_name",
+  "first_name",
+  "middle_name",
+  "last_name",
+  "gender",
+  "signatory_details",
+  "is_sole_proprietor",
+  "is_director",
+  "is_salaried",
+  "address_section",
+  "building_name",
+  "locality",
+  "street_name",
+  "column_break_pfkx",
+  "city",
+  "state",
+  "country",
+  "pin_code"
+ ],
+ "fields": [
+  {
+   "fieldname": "request_detail_section",
+   "fieldtype": "Section Break",
+   "label": "Request Detail"
+  },
+  {
+   "fieldname": "pan_card_number",
+   "fieldtype": "Data",
+   "label": "Pan Card Number"
+  },
+  {
+   "fieldname": "response_detail_section",
+   "fieldtype": "Section Break",
+   "label": "Response Detail"
+  },
+  {
+   "fieldname": "request_id",
+   "fieldtype": "Data",
+   "label": "Request ID"
+  },
+  {
+   "fieldname": "result_section",
+   "fieldtype": "Section Break",
+   "label": "Result"
+  },
+  {
+   "fieldname": "pan_number",
+   "fieldtype": "Data",
+   "label": "Pan Number"
+  },
+  {
+   "fieldname": "pan_type",
+   "fieldtype": "Data",
+   "label": "Pan Type"
+  },
+  {
+   "fieldname": "aadhaar_number",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Aadhaar Number"
+  },
+  {
+   "default": "0",
+   "fieldname": "aadhaar_linked",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Aadhaar Linked"
+  },
+  {
+   "fieldname": "date_of_birth",
+   "fieldtype": "Date",
+   "label": "Date of Birth"
+  },
+  {
+   "fieldname": "mobile_number",
+   "fieldtype": "Data",
+   "label": "Mobile Number"
+  },
+  {
+   "fieldname": "email_id",
+   "fieldtype": "Data",
+   "label": "Email Id",
+   "options": "Email"
+  },
+  {
+   "fieldname": "pan_status",
+   "fieldtype": "Data",
+   "label": "Pan Status"
+  },
+  {
+   "fieldname": "pan_allotment_date",
+   "fieldtype": "Date",
+   "label": "Pan Allotment Date"
+  },
+  {
+   "fieldname": "column_break_rebt",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "full_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Full Name"
+  },
+  {
+   "fieldname": "first_name",
+   "fieldtype": "Data",
+   "label": "First Name"
+  },
+  {
+   "fieldname": "middle_name",
+   "fieldtype": "Data",
+   "label": "Middle Name"
+  },
+  {
+   "fieldname": "last_name",
+   "fieldtype": "Data",
+   "label": "Last Name"
+  },
+  {
+   "fieldname": "gender",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Gender"
+  },
+  {
+   "fieldname": "signatory_details",
+   "fieldtype": "Data",
+   "label": "Signatory Details"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_sole_proprietor",
+   "fieldtype": "Check",
+   "label": "Is Sole Proprietor"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_director",
+   "fieldtype": "Check",
+   "label": "Is Director"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_salaried",
+   "fieldtype": "Check",
+   "label": "Is Salaried"
+  },
+  {
+   "fieldname": "address_section",
+   "fieldtype": "Section Break",
+   "label": "Address"
+  },
+  {
+   "fieldname": "building_name",
+   "fieldtype": "Data",
+   "label": "Building Name"
+  },
+  {
+   "fieldname": "locality",
+   "fieldtype": "Data",
+   "label": "Locality"
+  },
+  {
+   "fieldname": "street_name",
+   "fieldtype": "Data",
+   "label": "Street Name"
+  },
+  {
+   "fieldname": "column_break_pfkx",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "city",
+   "fieldtype": "Data",
+   "label": "City"
+  },
+  {
+   "fieldname": "state",
+   "fieldtype": "Data",
+   "label": "State"
+  },
+  {
+   "fieldname": "country",
+   "fieldtype": "Data",
+   "label": "Country"
+  },
+  {
+   "fieldname": "pin_code",
+   "fieldtype": "Data",
+   "label": "Pin Code"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-02-21 22:40:08.695825",
+ "modified_by": "Administrator",
+ "module": "Utility",
+ "name": "PanCard Verification",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

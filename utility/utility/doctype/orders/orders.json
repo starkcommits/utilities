@@ -7,7 +7,7 @@
  "engine": "InnoDB",
  "field_order": [
   "product_name",
-  "mobile_number",
+  "identity_number",
   "product_category",
   "channel",
   "column_break_gwbg",
@@ -24,11 +24,6 @@
   "table_qosh"
  ],
  "fields": [
-  {
-   "fieldname": "mobile_number",
-   "fieldtype": "Data",
-   "label": "Mobile Number"
-  },
   {
    "fieldname": "channel_partner",
    "fieldtype": "Link",
@@ -110,11 +105,16 @@
   {
    "fieldname": "column_break_sawd",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "identity_number",
+   "fieldtype": "Data",
+   "label": "Identity Number"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-02-20 22:16:48.244949",
+ "modified": "2025-02-22 11:08:47.768433",
  "modified_by": "Administrator",
  "module": "Utility",
  "name": "Orders",

@@ -8,7 +8,6 @@
  "engine": "InnoDB",
  "field_order": [
   "product_name",
-  "is_active",
   "column_break_juro",
   "discount_type",
   "discount_amount",
@@ -60,19 +59,12 @@
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Plateform Fee"
-  },
-  {
-   "default": "0",
-   "fieldname": "is_active",
-   "fieldtype": "Check",
-   "in_list_view": 1,
-   "label": "Is Active"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-02-21 11:58:39.695060",
+ "modified": "2025-02-22 09:12:48.497069",
  "modified_by": "Administrator",
  "module": "Utility",
  "name": "Product Pricing",

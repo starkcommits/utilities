@@ -1,0 +1,112 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:{######}",
+ "creation": "2025-02-21 22:43:03.227658",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "request_detail_section",
+  "aadhaar_card_number",
+  "response_detail_section",
+  "request_id",
+  "result_section",
+  "aadhaar_age_band",
+  "aadhaar_gender",
+  "aadhaar_phone",
+  "column_break_cuqn",
+  "aadhaar_state",
+  "aadhaar_result"
+ ],
+ "fields": [
+  {
+   "fieldname": "request_detail_section",
+   "fieldtype": "Section Break",
+   "label": "Request Detail"
+  },
+  {
+   "fieldname": "aadhaar_card_number",
+   "fieldtype": "Data",
+   "label": "Aadhaar Card Number"
+  },
+  {
+   "fieldname": "response_detail_section",
+   "fieldtype": "Section Break",
+   "label": "Response Detail"
+  },
+  {
+   "fieldname": "request_id",
+   "fieldtype": "Data",
+   "label": "Request ID"
+  },
+  {
+   "fieldname": "result_section",
+   "fieldtype": "Section Break",
+   "label": "Result"
+  },
+  {
+   "fieldname": "aadhaar_age_band",
+   "fieldtype": "Data",
+   "label": "Aadhaar Age Band"
+  },
+  {
+   "fieldname": "aadhaar_gender",
+   "fieldtype": "Data",
+   "label": "Aadhaar Gender"
+  },
+  {
+   "fieldname": "aadhaar_phone",
+   "fieldtype": "Data",
+   "label": "Aadhaar Phone"
+  },
+  {
+   "fieldname": "column_break_cuqn",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "aadhaar_state",
+   "fieldtype": "Data",
+   "label": "Aadhaar State"
+  },
+  {
+   "fieldname": "aadhaar_result",
+   "fieldtype": "Data",
+   "label": "Aadhaar Result"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-02-21 22:53:06.089866",
+ "modified_by": "Administrator",
+ "module": "Utility",
+ "name": "AahaarCard Verification",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "API Partner",
+   "share": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
