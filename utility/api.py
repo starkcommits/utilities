@@ -6,7 +6,7 @@ import random
 
 from typing import Optional, Dict, Any
 
-def document_verification(product, identity_number: str,processor,order,txn_log):
+def document_verification(product, identity_number: str,processor,order):
     method = None
     payload = None
     if product.name == "PanCard Detail Finder":
@@ -15,6 +15,7 @@ def document_verification(product, identity_number: str,processor,order,txn_log)
             'pan_card_number': identity_number
         })
         doc.insert()
+        frappe.db.commit()
 
         method = next((m for m in processor.api_methods if m.method_name == "Pan Card Verification"), None)
 
@@ -22,7 +23,7 @@ def document_verification(product, identity_number: str,processor,order,txn_log)
             raise frappe.ValidationError("Pan Card Verification method not found in processor configuration")
         
         payload = {
-            "client_ref_num":doc.name,
+            "client_ref_num":order.name,
             "pan":doc.pan_card_number
         }
     else :
@@ -31,6 +32,7 @@ def document_verification(product, identity_number: str,processor,order,txn_log)
             'aadhaar_card_number': identity_number
         })
         doc.insert()
+        frappe.db.commit()
 
         method = next((m for m in processor.api_methods if m.method_name == "Aadhaar Card Verification"), None)
 
@@ -38,14 +40,14 @@ def document_verification(product, identity_number: str,processor,order,txn_log)
             raise frappe.ValidationError("Aadhaar Card Verification method not found in processor configuration")
         
         payload = {
-            "client_ref_num":doc.name,
+            "client_ref_num":order.name,
             "aadhaar":doc.aadhaar_card_number
         }
     
     api_token = next((config.api_key for config in processor.api_config if config.key_name == "Authorization Key"), None)
 
-    if not api_token:
-        raise frappe.ValidationError("API Token not found in processor configuration")
+    # if not api_token:
+    #     raise frappe.ValidationError("API Token not found in processor configuration")
     url = processor.base_url + method.method_end_point
     # headers = {"Content-Type": "application/json"}
     headers = {
@@ -55,7 +57,7 @@ def document_verification(product, identity_number: str,processor,order,txn_log)
     try:
         
         response = requests.post(url, json=payload, headers=headers, timeout=30)
-        time.sleep(2)
+        
         frappe.log_error(
             title="API Request Response",
             message=f"Request Body: {payload}, Response Body: {response.text}",
@@ -64,14 +66,6 @@ def document_verification(product, identity_number: str,processor,order,txn_log)
         )
         api_response = response.json()
         if api_response["http_response_code"] == 200:
-            # Create a final transaction log (Hold amount)
-            txn_log.status = "Completed"
-            txn_log.transaction_type = "Debit (Final)"
-            txn_log.save(ignore_permissions=True)
-
-            order.order_status="Completed"
-            order.save(ignore_permissions=True)
-
             if product.name == "PanCard Detail Finder":
                 doc.request_id = api_response.get("request_id")
                 doc.client_ref_id = api_response.get("client_ref_num")
@@ -104,6 +98,7 @@ def document_verification(product, identity_number: str,processor,order,txn_log)
                 doc.pin_code = address.get("pincode")
 
                 doc.save(ignore_permissions=True)
+                frappe.db.commit()
             else: 
                 doc.request_id = api_response.get("request_id")
                 doc.aadhaar_age_band = api_response.get("result", {}).get("aadhaar_age_band")
@@ -113,8 +108,11 @@ def document_verification(product, identity_number: str,processor,order,txn_log)
                 doc.aadhaar_result = api_response.get("result", {}).get("aadhaar_result")
 
                 doc.save(ignore_permissions=True)
-    
-            frappe.db.commit()
+                frappe.db.commit()
+            
+            order.order_status="Completed"
+            order.save(ignore_permissions=True)
+            
             # Convert to dict and remove unwanted metadata fields
             response_data = doc.as_dict()
             doc_name = response_data.get("name")
@@ -130,16 +128,10 @@ def document_verification(product, identity_number: str,processor,order,txn_log)
             return response_data
 
         elif response_data["status"] == "pending":
-            txn_log.save(ignore_permissions=True)
             frappe.db.commit()
-            return {"status": "pending", "message": "Transaction processing", "order_id": order.name, "transaction_id": txn_log.name, "pay_id": response_data["payid"]}
+            return {"status": "pending", "message": "Transaction processing", "order_id": order.name, "pay_id": response_data["payid"]}
         
         else:
-            # Mark transaction as failed
-            txn_log.status = "Reversed"
-            txn_log.transaction_type = "Credit Reversal"
-            txn_log.save(ignore_permissions=True)
-
             order.order_status="Canceled"
             order.save(ignore_permissions=True)
 
@@ -162,110 +154,6 @@ def make_an_order(product_name: str, identity_number: str, channel_partner: str,
             return {
                 "Your status is blocked. Please contact Administrator."
             }
-        
-        partner_wallets = frappe.get_all("Partner Wallet",
-            filters={"channel_partner":channel_partner, "status":"Active"},
-            fields=["name","balance","status"]
-        )
-        if not partner_wallets:
-            return {
-                "error":"You don't have any active wallet. Please activate one or create a new one."
-            }
-
-        partner_wallet=None
-        for wallet in partner_wallets:
-            product_categories = frappe.get_all(
-                "Wallet Including Table",
-                filters={"parent": wallet["name"],"product_category":product.category},
-                fields=["product_category"]
-            )
-            if product_categories:
-                partner_wallet=wallet
-                break
-        
-        if not partner_wallet:
-            return {
-                "error" : "You don't have any wallet for ordering this product."
-            }
-        
-        # Check Available Balance
-        available_balance = partner_wallet.balance
-
-        # Fetch Channel Partner Discount
-        product_pricing = frappe.get_all(
-            "Product Pricing",
-            filters={"parent": channel_partner, "product_name": product.name},
-            fields=["discount_type", "discount_amount","plateform_fee_type","plateform_fee","is_active"]
-        )
-
-        # Calculate transaction amount with discount
-        transaction_amount = order_amount
-        discount_value = 0
-        discount_type = "None"
-
-        plateform_fee_value = 0
-        plateform_fee_type = "None"
-
-        if product_pricing:
-            product_price = product_pricing[0]
-
-            discount_value = float(product_price.get("discount_amount", 0))
-            discount_type = product_price.get("discount_type", "None")
-
-            if discount_type == "Percentage":
-                discount_value = order_amount * discount_value / 100
-                transaction_amount = order_amount - discount_value
-            elif discount_type == "Fixed":
-                transaction_amount = order_amount - discount_value
-            
-            plateform_fee_value = float(product_price.get("plateform_fee", 0))
-            plateform_fee_type = product_price.get("plateform_fee_type","None")
-
-            if plateform_fee_type == "Percentage":
-                plateform_fee_value = order_amount * plateform_fee_value / 100
-                transaction_amount = transaction_amount + plateform_fee_value
-            elif plateform_fee_type == "Fixed":
-                transaction_amount = transaction_amount + plateform_fee_value
-            
-        else:
-            return {
-                "You didn't have this product in your list. Please add it to use services"
-            }
-        
-        if available_balance < transaction_amount:
-            return {
-                "Title": "Insufficient Balance",
-                "data": "Please recharge your wallet to make transactions."
-            } 
-        # Create an order
-        order = frappe.get_doc({
-            "doctype": "Orders",
-            "order_amount": order_amount,
-            "product_name": product_name,
-            "identity_number": identity_number,
-            "channel": "Android",
-            "channel_partner": channel_partner,
-            "order_status": "Created"
-        })
-        order.insert(ignore_permissions=True)
-
-        txn_log = frappe.get_doc({
-            "doctype": "Payment Transaction Logs",
-            "channel_partner": channel_partner,
-            "product_name":product.name,
-            "order_id":order.name,
-            "order_amount": order_amount,
-            "discount":discount_value,
-            "plateform_fee":plateform_fee_value,
-            "transaction_type": "Debit (Hold)",
-            "transaction_amount":transaction_amount,
-            "closing_balance" : available_balance - transaction_amount,
-            "status": "Created"
-        })
-        txn_log.insert(ignore_permissions=True)
-
-        order.transaction_id=txn_log.name
-        order.save(ignore_permissions=True)
 
         # Send request to payment processor
         processors = frappe.get_all(
@@ -275,79 +163,77 @@ def make_an_order(product_name: str, identity_number: str, channel_partner: str,
         )
         processor = frappe.get_doc("Processor", processors[0].processor)
 
-        order.processor = processor.name
-        order.save(ignore_permissions=True)
+        # Create an order
+        order = frappe.get_doc({
+            "doctype": "Orders",
+            "order_amount": order_amount,
+            "product_name": product_name,
+            "identity_number": identity_number,
+            "channel": "Android",
+            "processor":processor.name,
+            "channel_partner": partner.name,
+            "order_status": "Created"
+        })
 
+        order.insert(ignore_permissions=True)
         frappe.db.commit()
         
         if product.category == "Verification":
-            return document_verification(product,identity_number,processor,order,txn_log)
+            return document_verification(product,identity_number,processor,order)
         
-        method = next((m for m in processor.api_methods if m.method_name == "Make Payment"), None)
+        # method = next((m for m in processor.api_methods if m.method_name == "Make Payment"), None)
 
-        if not method:
-            raise frappe.ValidationError("Make Payment method not found in processor configuration")
+        # if not method:
+        #     raise frappe.ValidationError("Make Payment method not found in processor configuration")
 
-        url = processor.base_url + method.method_end_point
-        api_token = next((config.api_key for config in processor.api_config if config.key_name == "API Token"), None)
+        # url = processor.base_url + method.method_end_point
+        # api_token = next((config.api_key for config in processor.api_config if config.key_name == "API Token"), None)
 
-        if not api_token:
-            raise frappe.ValidationError("API Token not found in processor configuration")
+        # if not api_token:
+        #     raise frappe.ValidationError("API Token not found in processor configuration")
 
-        provider_id = next((provider.product_id for provider in processor.providers if provider.product_name == product.product_name), None)
+        # provider_id = next((provider.product_id for provider in processor.providers if provider.product_name == product.product_name), None)
         
-        if not provider_id:
-            return {
-                "error":"Provider Id is not configured"
-            }
+        # if not provider_id:
+        #     return {
+        #         "error":"Provider Id is not configured"
+        #     }
 
-        payload = {
-            "api_token": api_token,
-            "provider_id": provider_id,
-            "amount": order_amount,
-            "number": identity_number,
-            "client_id": order.name,
-            "environment": "UAT"
-        }
-        response = requests.get(url, params=payload)
-        time.sleep(2)
-        frappe.log_error(
-            title="API Request Response",
-            message=f"Request Body: {payload}, Response Body: {response.text}",
-            reference_doctype="Orders",  # The related document type
-            reference_name=order.name  # The related order ID
-        )
-
-
-        response_data = response.json()
-        if response_data["status"] == "success":
-            # Create a final transaction log (Hold amount)
-            txn_log.status = "Completed"
-            txn_log.transaction_type = "Debit (Final)"
-            txn_log.save(ignore_permissions=True)
-
-            order.order_status="Completed"
-            order.save(ignore_permissions=True)
-
-            frappe.db.commit()
-            return {"status": "success", "transaction_id":txn_log.name}
-        elif response_data["status"] == "pending":
-            txn_log.save(ignore_permissions=True)
-            frappe.db.commit()
-            return {"status": "pending", "message": "Transaction processing", "order_id": order.name, "transaction_id": txn_log.name, "pay_id": response_data["payid"]}
+        # payload = {
+        #     "api_token": api_token,
+        #     "provider_id": provider_id,
+        #     "amount": order_amount,
+        #     "number": identity_number,
+        #     "client_id": order.name,
+        #     "environment": "UAT"
+        # }
+        # response = requests.get(url, params=payload)
         
-        else:
-            # Mark transaction as failed
-            txn_log.status = "Reversed"
-            txn_log.transaction_type = "Credit Reversal"
-            txn_log.save(ignore_permissions=True)
+        # frappe.log_error(
+        #     title="API Request Response",
+        #     message=f"Request Body: {payload}, Response Body: {response.text}",
+        #     reference_doctype="Orders",  # The related document type
+        #     reference_name=order.name  # The related order ID
+        # )
 
-            order.order_status="Canceled"
-            order.save(ignore_permissions=True)
+        # response_data = response.json()
+        # if response_data["status"] == "success":
+        #     order.order_status="Completed"
+        #     order.save(ignore_permissions=True)
 
-            frappe.db.commit()
+        #     frappe.db.commit()
+        #     return {"status": "success", "order_id":order.name}
+        # elif response_data["status"] == "pending":
+        #     frappe.db.commit()
+        #     return {"status": "pending", "message": "Transaction processing", "order_id": order.name, "pay_id": response_data["payid"]}
+        
+        # else:
+        #     order.order_status="Canceled"
+        #     order.save(ignore_permissions=True)
+
+        #     frappe.db.commit()
             
-            return {"status": "failed", "message": "Transaction failed"}
+        #     return {"status": "failed", "message": "Transaction failed"}
 
     except Exception as e:
         frappe.log_error("Order Processing Error", str(e))
@@ -378,19 +264,10 @@ def payment_webhook():
             frappe.throw("No pending txn found with this order ID")
 
         if status.lower() == "success":
-            # Finalize the transaction
-            txn_log.status = "Completed"
-            txn_log.transaction_type = "Debit (Final)"
-            txn_log.save(ignore_permissions=True)
-
             order.order_status = "Completed"
             order.save(ignore_permissions=True)
 
         else:
-            txn_log.status = "Reversed"
-            txn_log.transaction_type = "Credit Reversal"
-            txn_log.save(ignore_permissions=True)
-
             order.order_status = "Canceled"
             order.save(ignore_permissions=True)
 
@@ -424,7 +301,8 @@ def topup(amount,channel_partner):
         "channel":"Web"
     })
     order.insert(ignore_permissions=True)
-    
+    frappe.db.commit()
+
     transaction = frappe.get_doc({
         "doctype":"Payment Transaction Logs",
         "source_docname":"Orders",
@@ -439,6 +317,7 @@ def topup(amount,channel_partner):
         "status": "Completed"
     })
     transaction.insert(ignore_permissions=True)
+    frappe.db.commit()
 
     order.order_status="Completed"
     order.transaction_id=transaction.name
@@ -448,30 +327,6 @@ def topup(amount,channel_partner):
     frappe.db.commit()
     return {"Wallet recharged successfully"}
 
-# def get_available_balance(channel_partner):
-#     """Calculate available balance based on transaction log."""
-#     total_credits = frappe.db.sql("""
-#         SELECT SUM(transaction_amount) FROM `tabPayment Transaction Logs`
-#         WHERE channel_partner = %s AND transaction_type IN ('Credit (Top-up)', 'Credit Reversal')
-#     """, (channel_partner))[0][0] or 0
-
-#     total_debits = frappe.db.sql("""
-#         SELECT SUM(transaction_amount) FROM `tabPayment Transaction Logs`
-#         WHERE channel_partner = %s AND transaction_type IN ('Debit (Hold)', 'Debit (Final)')
-#     """, (channel_partner))[0][0] or 0
-
-#     return total_credits - total_debits
-
-# def get_closing_balance(channel_partner):
-#     """Fetch the latest closing balance from the transaction log."""
-#     latest_balance = frappe.db.sql("""
-#         SELECT closing_balance FROM `tabPayment Transaction Logs`
-#         WHERE channel_partner = %s
-#         ORDER BY creation DESC
-#         LIMIT 1
-#     """, (channel_partner,))
-
-#     return latest_balance[0][0] if latest_balance else 0  # Default to 0 if no transactions exist
 
 
 @frappe.whitelist()

@@ -140,7 +140,10 @@ app_license = "mit"
 doc_events = {
 	"Payment Transaction Logs": {
 		# "after_insert": "utility.wallet.update_wallet",
-		"on_update":"utility.wallet.update_wallet"
+		"on_update": "utility.wallet_utils.update_wallet"
+	},
+	"Orders":{
+		"on_update": "utility.transaction.make_transaction"
 	}
 }
 
@@ -149,6 +152,7 @@ api = {
 		"utility.get_provider.get_provider_detail",
 		"utility.fetch_plan.get_plans",
 		"utility.api.make_an_order",
+		"utility.create_order.make_an_order",
 		"utility.api.topup",
 		"utility.api.bulk_recharge",
 		"utility.api.delete_record"

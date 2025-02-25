@@ -25,7 +25,7 @@ def update_wallet(doc, method):
         if doc.status == "Created":
             partner_wallet.balance -= doc.transaction_amount
             partner_wallet.save(ignore_permissions=True)
-            
+            frappe.db.commit()
             # Update order status if exists
             order = frappe.get_all(
                 "Orders",
@@ -37,6 +37,7 @@ def update_wallet(doc, method):
                 order_doc = frappe.get_doc("Orders", order[0]["name"])
                 order_doc.order_status = "Processing"
                 order_doc.save(ignore_permissions=True)
+                frappe.db.commit()
             
             # Update transaction status and balance without triggering events
             frappe.db.set_value(
@@ -48,12 +49,13 @@ def update_wallet(doc, method):
                 },
                 update_modified=False
             )
-        
+
+            doc.reload()
         # Case 2: When Transaction is Reversed
         elif doc.status == "Reversed" or (doc.status == "Completed" and doc.product_name == "Wallet Top Up"):
             partner_wallet.balance += doc.transaction_amount
             partner_wallet.save(ignore_permissions=True)
-            
+            frappe.db.commit()
             # Update closing balance without triggering events
             frappe.db.set_value(
                 "Payment Transaction Logs",
@@ -61,6 +63,7 @@ def update_wallet(doc, method):
                 {"closing_balance": partner_wallet.balance},
                 update_modified=False
             )
+            doc.reload()
 
         frappe.db.commit()
         

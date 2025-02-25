@@ -5,7 +5,7 @@
    "label": "Total Transaction"
   }
  ],
- "content": "[{\"id\":\"AaONyBTHa4\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Utility Dashboard</span>\",\"col\":12}},{\"id\":\"V57crU_Xif\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Total Recharge\",\"col\":3}},{\"id\":\"e2Hcjq2GYy\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Total Product\",\"col\":3}},{\"id\":\"ttxo85DbDh\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Total Plan\",\"col\":3}},{\"id\":\"ZE2jOxXQtN\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Total Processor\",\"col\":3}},{\"id\":\"IfBKtIXfPu\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"fzjLJI6VkP\",\"type\":\"header\",\"data\":{\"text\":\"<span style=\\\"font-size: 18px; letter-spacing: 0.18px;\\\"><b>Quick Add</b></span>\",\"col\":12}},{\"id\":\"71Sl7Mm3uZ\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Add Product\",\"col\":3}},{\"id\":\"Er9z_SZgN8\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Add Offer\",\"col\":3}},{\"id\":\"xdPJUQoXKC\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Add Plan\",\"col\":3}},{\"id\":\"RzAyl09ZwI\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Add Processor\",\"col\":3}},{\"id\":\"HqgtKUQSi8\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Add Channel Partner\",\"col\":3}},{\"id\":\"HkdUrwnQLi\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Add Seller\",\"col\":3}},{\"id\":\"Zzii6i-Jy9\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"kaX7UCRh5t\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Your Shortcuts</b></span>\",\"col\":12}},{\"id\":\"tua70Oii9k\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"DTH Recharges\",\"col\":3}},{\"id\":\"u_Vkf7YQ8q\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Mobile Recharges\",\"col\":3}},{\"id\":\"bOzluPhL_W\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Water Bill Payments\",\"col\":3}},{\"id\":\"nnWfgqhM4a\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Credit Card Bill Payments\",\"col\":3}},{\"id\":\"GW-nUGksZv\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Active Plans\",\"col\":3}},{\"id\":\"pi-meZ8zEG\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Services\",\"col\":3}},{\"id\":\"Xz0yumBPov\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Active Processors\",\"col\":3}},{\"id\":\"DZ6hF09liO\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Active Sellers\",\"col\":3}},{\"id\":\"EAPzLtQED3\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"Ny1ikcKn3A\",\"type\":\"header\",\"data\":{\"text\":\"<span style=\\\"font-size: 18px; letter-spacing: 0.18px;\\\"><b>Transaction Representation</b></span>\",\"col\":12}},{\"id\":\"4KALfTcTB0\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Total Transaction\",\"col\":12}},{\"id\":\"ScDgDFuhOb\",\"type\":\"spacer\",\"data\":{\"col\":12}}]",
+ "content": "[{\"id\":\"AaONyBTHa4\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Utility Dashboard</span>\",\"col\":12}},{\"id\":\"V57crU_Xif\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Total Recharge\",\"col\":3}},{\"id\":\"e2Hcjq2GYy\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Total Product\",\"col\":3}},{\"id\":\"ttxo85DbDh\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Total Plan\",\"col\":3}},{\"id\":\"ZE2jOxXQtN\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Total Processor\",\"col\":3}},{\"id\":\"IfBKtIXfPu\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"fzjLJI6VkP\",\"type\":\"header\",\"data\":{\"text\":\"<span style=\\\"font-size: 18px; letter-spacing: 0.18px;\\\"><b>Quick Add</b></span>\",\"col\":12}},{\"id\":\"71Sl7Mm3uZ\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Add Product\",\"col\":3}},{\"id\":\"Er9z_SZgN8\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Add Offer\",\"col\":3}},{\"id\":\"xdPJUQoXKC\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Add Plan\",\"col\":3}},{\"id\":\"RzAyl09ZwI\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Add Processor\",\"col\":3}},{\"id\":\"HqgtKUQSi8\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Add Channel Partner\",\"col\":3}},{\"id\":\"HkdUrwnQLi\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Add Seller\",\"col\":3}},{\"id\":\"Zzii6i-Jy9\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"kaX7UCRh5t\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Your Shortcuts</b></span>\",\"col\":12}},{\"id\":\"tua70Oii9k\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"DTH Recharges\",\"col\":3}},{\"id\":\"u_Vkf7YQ8q\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Mobile Recharges\",\"col\":3}},{\"id\":\"bOzluPhL_W\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Water Bill Payments\",\"col\":3}},{\"id\":\"nnWfgqhM4a\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Credit Card Bill Payments\",\"col\":3}},{\"id\":\"GW-nUGksZv\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Active Plans\",\"col\":3}},{\"id\":\"pi-meZ8zEG\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Services\",\"col\":3}},{\"id\":\"Xz0yumBPov\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Active Processors\",\"col\":3}},{\"id\":\"DZ6hF09liO\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Active Sellers\",\"col\":3}},{\"id\":\"-7Fmqmqkki\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Orders\",\"col\":3}},{\"id\":\"yktF21VIsH\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Transactions\",\"col\":4}},{\"id\":\"fUmtKaLK7s\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Error Log\",\"col\":3}},{\"id\":\"Lo10wtolY_\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Channel Partner\",\"col\":3}},{\"id\":\"EAPzLtQED3\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"Ny1ikcKn3A\",\"type\":\"header\",\"data\":{\"text\":\"<span style=\\\"font-size: 18px; letter-spacing: 0.18px;\\\"><b>Transaction Representation</b></span>\",\"col\":12}},{\"id\":\"4KALfTcTB0\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Total Transaction\",\"col\":12}},{\"id\":\"ScDgDFuhOb\",\"type\":\"spacer\",\"data\":{\"col\":12}}]",
  "creation": "2025-02-08 14:44:32.341634",
  "custom_blocks": [],
  "docstatus": 0,
@@ -18,7 +18,7 @@
  "is_hidden": 0,
  "label": "Utility",
  "links": [],
- "modified": "2025-02-08 22:07:08.053148",
+ "modified": "2025-02-24 13:28:19.582230",
  "modified_by": "Administrator",
  "module": "Utility",
  "name": "Utility",
@@ -57,6 +57,30 @@
   },
   {
    "color": "Grey",
+   "doc_view": "List",
+   "label": "Orders",
+   "link_to": "Orders",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Error Log",
+   "link_to": "Error Log",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Transactions",
+   "link_to": "Payment Transaction Logs",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
    "doc_view": "New",
    "label": "Add Processor",
    "link_to": "Processor",
@@ -90,6 +114,14 @@
   {
    "color": "Grey",
    "doc_view": "List",
+   "label": "Mobile Recharges",
+   "link_to": "Orders",
+   "stats_filter": "[[\"Orders\",\"product_category\",\"=\",\"Recharge\",false],[\"Orders\",\"read_only_pbyo\",\"=\",\"Completed\",false]]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
    "label": "Active Processors",
    "link_to": "Processor",
    "stats_filter": "[[\"Processor\",\"is_active\",\"=\",1,false]]",
@@ -100,6 +132,14 @@
    "doc_view": "New",
    "label": "Add Product",
    "link_to": "Product",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Channel Partner",
+   "link_to": "Channel Partner",
    "stats_filter": "[]",
    "type": "DocType"
   },
@@ -125,14 +165,6 @@
    "label": "Services",
    "link_to": "Product Category",
    "stats_filter": "[]",
-   "type": "DocType"
-  },
-  {
-   "color": "Grey",
-   "doc_view": "List",
-   "label": "Mobile Recharges",
-   "link_to": "Orders",
-   "stats_filter": "[[\"Orders\",\"product_category\",\"=\",\"Mobile Recharge\",false],[\"Orders\",\"read_only_pbyo\",\"=\",\"Successful\",false]]",
    "type": "DocType"
   },
   {
