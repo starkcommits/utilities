@@ -143,7 +143,23 @@ def document_verification(product, identity_number: str,processor,order):
         frappe.log_error(f"API Call Failed: {str(e)}", "API Integration")
 
 @frappe.whitelist()
-def make_an_order(product_name: str, identity_number: str, channel_partner: str, order_amount: float = 0):
+def make_an_order(product_name: str, identity_number: str, order_amount: float = 0):
+    user = frappe.session.user  # Get logged-in user
+    if not user:
+        return {
+            "You aren't loged in."
+        }
+    # Find the Channel Partner where the user exists in the child table
+    channel_partner = frappe.db.get_value(
+        "Team",  # This is the child table Doctype
+        {"person_name": user},   # Filter using child table directly
+        "parent"  # Parent field gives the Channel Partner linked to this entry
+    )
+    if not channel_partner:
+        return {
+            "You are not member of any company. Please contact administrator."
+        }
+    
 
     try:
         order_amount = float(order_amount)
@@ -155,14 +171,6 @@ def make_an_order(product_name: str, identity_number: str, channel_partner: str,
                 "Your status is blocked. Please contact Administrator."
             }
 
-        # Send request to payment processor
-        processors = frappe.get_all(
-            "Processor Table",
-            filters={"parent":product.name,"is_active":1},
-            fields=["name","processor"]
-        )
-        processor = frappe.get_doc("Processor", processors[0].processor)
-
         # Create an order
         order = frappe.get_doc({
             "doctype": "Orders",
@@ -170,10 +178,19 @@ def make_an_order(product_name: str, identity_number: str, channel_partner: str,
             "product_name": product_name,
             "identity_number": identity_number,
             "channel": "Android",
-            "processor":processor.name,
             "channel_partner": partner.name,
             "order_status": "Created"
         })
+        
+        # Send request to payment processor
+        processors = frappe.get_all(
+            "Processor Table",
+            filters={"parent":product.name,"is_active":1},
+            fields=["name","processor"]
+        )
+        for processor in processors:
+
+        processor = frappe.get_doc("Processor", processors[0].processor)
 
         order.insert(ignore_permissions=True)
         frappe.db.commit()
@@ -365,4 +382,3 @@ def delete_record():
     frappe.db.delete("Orders")
 
     frappe.db.commit()
-

@@ -1,7 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "field:person_name",
+ "autoname": "format:full_name{#####}",
  "creation": "2025-02-08 18:58:26.480391",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -9,6 +9,7 @@
  "field_order": [
   "person_name",
   "email",
+  "full_name",
   "column_break_aasf",
   "designation",
   "mobile_number"
@@ -19,8 +20,7 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Person Name",
-   "options": "User",
-   "unique": 1
+   "options": "User"
   },
   {
    "fetch_from": "person_name.email",
@@ -43,18 +43,24 @@
   {
    "fieldname": "mobile_number",
    "fieldtype": "Data",
-   "in_list_view": 1,
    "label": "Mobile Number"
+  },
+  {
+   "fetch_from": "person_name.full_name",
+   "fieldname": "full_name",
+   "fieldtype": "Read Only",
+   "in_list_view": 1,
+   "label": "Full Name"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-02-20 13:59:42.420844",
+ "modified": "2025-02-27 12:31:10.148554",
  "modified_by": "Administrator",
  "module": "Utility",
  "name": "Team",
- "naming_rule": "By fieldname",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [],
  "sort_field": "modified",

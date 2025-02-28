@@ -151,11 +151,9 @@ api = {
 	"methods": [
 		"utility.get_provider.get_provider_detail",
 		"utility.fetch_plan.get_plans",
-		"utility.api.make_an_order",
-		"utility.create_order.make_an_order",
-		"utility.api.topup",
-		"utility.api.bulk_recharge",
-		"utility.api.delete_record"
+		"utility.verification.pan_card",
+		"utility.verification.aadhaar_card",
+		"utility.recharge.order"
 	]
 }
 # Scheduled Tasks
@@ -254,4 +252,3 @@ api = {
 # default_log_clearing_doctypes = {
 # 	"Logging DocType Name": 30  # days to retain logs
 # }
-

@@ -24,8 +24,8 @@
   "status",
   "product_pricing_section",
   "table_nhbu",
-  "contacts_section",
-  "table_ibau"
+  "members_section",
+  "team"
  ],
  "fields": [
   {
@@ -92,16 +92,6 @@
    "label": "Contact Details"
   },
   {
-   "fieldname": "contacts_section",
-   "fieldtype": "Section Break",
-   "label": "Contacts"
-  },
-  {
-   "fieldname": "table_ibau",
-   "fieldtype": "Table",
-   "options": "Team"
-  },
-  {
    "fieldname": "partner_wallet",
    "fieldtype": "Link",
    "label": "Partner Wallet",
@@ -136,11 +126,22 @@
    "fieldtype": "Select",
    "label": "Status",
    "options": "Active\nBlocked"
+  },
+  {
+   "fieldname": "members_section",
+   "fieldtype": "Section Break",
+   "label": "Members"
+  },
+  {
+   "fieldname": "team",
+   "fieldtype": "Table",
+   "label": "Team",
+   "options": "Team"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-02-21 12:00:08.012335",
+ "modified": "2025-02-27 12:24:13.955716",
  "modified_by": "Administrator",
  "module": "Utility",
  "name": "Channel Partner",
