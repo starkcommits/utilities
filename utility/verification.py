@@ -277,3 +277,153 @@ def aadhaar_card(product_name: str, identity_number: str):
         return {
             f"Error in api call {str(e)}"
         }
+
+@frappe.whitelist()
+def gst(product_name: str, identity_number: str):
+    try:
+        partner = cp.get_channel_partner()
+
+        # Check if there's an error in the result
+        if "error" in partner:
+            return partner
+        
+        products = pdt.get_product(product_name, "Verification")
+
+        if "error" in products:
+            return products
+
+        channel_partner = partner["channel_partner"]
+        product = products["product"]
+
+        # Send request to payment processor
+        processors = frappe.get_all(
+            "Processor Table",
+            filters={"parent":product.name,"is_active":1},
+            fields=["name","processor"]
+        )
+        processor = frappe.get_doc("Processor", processors[0].processor)
+
+        # Create an order
+        order = frappe.get_doc({
+            "doctype": "Orders",
+            "order_amount": 0,
+            "product_name": product.product_name,
+            "identity_number": identity_number,
+            "channel": "Android",
+            "processor":processor.name,
+            "channel_partner": channel_partner.name,
+            "order_status": "Created"
+        })
+
+        order.insert(ignore_permissions=True)
+        frappe.db.commit()
+
+        doc = frappe.get_doc({
+            'doctype':'GST Verification',
+            'gstin_number': identity_number
+        })
+        doc.insert(ignore_permissions=True)
+        frappe.db.commit()
+
+        method = next((m for m in processor.api_methods if m.method_name == "GST Verification"), None)
+
+        if not method:
+            raise frappe.ValidationError("GST Verification method not found in processor configuration")
+        
+        api_token = next((config.api_key for config in processor.api_config if config.key_name == "Authorization Key"), None)
+
+
+        url = processor.base_url + method.method_end_point
+        
+        headers = {
+            "Authorization": f"Bearer {api_token}",
+            "Content-Type": "application/json"
+        }
+        
+        payload = {
+            "gstin":doc.gstin_number
+        }
+
+        response = requests.get(url, params=payload, headers=headers)
+        # response = frappe.make_post_request(url, data=payload, headers=headers)
+        
+        frappe.log_error(
+            title="API Request Response",
+            message=f"Request Body: {payload}, Response Body: {response.text}",
+            reference_doctype="Orders",  # The related document type
+            reference_name=order.name  # The related order ID
+        )
+        api_response = response.json()
+        if api_response:
+
+            taxpayer_details = api_response
+
+            # Update GST Verification document
+            doc.update({
+                "gstin_number": taxpayer_details.get("gstin"),
+                "legal_name": taxpayer_details.get("lgnm"),
+                "trade_name": taxpayer_details.get("tradeNam"),
+                "constitution_of_business": taxpayer_details.get("ctb"),
+                "taxpayer_type": taxpayer_details.get("dty"),
+                "registration_date": taxpayer_details.get("rgdt"),
+                "status": taxpayer_details.get("sts"),
+                "cancellation_date": taxpayer_details.get("cxdt"),
+                "state_jurisdiction": taxpayer_details.get("stj"),
+                "state_jurisdiction_code": taxpayer_details.get("stjCd"),
+                "central_jurisdiction": taxpayer_details.get("ctj"),
+                "central_jurisdiction_code": taxpayer_details.get("ctjCd")
+                # "nature_of_business": ", ".join(taxpayer_details.get("nba", []))
+            })
+            
+            for activity in taxpayer_details.get("nba", []):
+                doc.append("business_activities", {
+                    "activity": activity
+                })
+            
+            for activity in taxpayer_details.get("adadr", []):
+                address = activity.get("addr", {})
+                # ntr = activity["ntr"]
+
+                doc.append("addresses", {
+                    "building_name": address.get("bnm"),
+                    "street": address.get("st"),
+                    "location": address.get("loc"),
+                    "building_number": address.get("bno"),
+                    "state_code": address.get("stcd"),
+                    "floor_number": address.get("flno"),
+                    "latitude": address.get("lt"),
+                    "longitude": address.get("lg"),
+                    "district": address.get("dst"),
+                    "city": address.get("city"),
+                    "pincode": address.get("pncd")
+                    # "nature_of_address":ntr
+                })
+
+
+            doc.append("addresses", {
+                "building_name": taxpayer_details.get("pradr", {}).get("bnm"),
+                "street": taxpayer_details.get("pradr", {}).get("st"),
+                "location": taxpayer_details.get("pradr", {}).get("loc"),
+                "building_number": taxpayer_details.get("pradr", {}).get("bno"),
+                "state_code": taxpayer_details.get("pradr", {}).get("stcd"),
+                "floor_number": taxpayer_details.get("pradr", {}).get("flno"),
+                "latitude": taxpayer_details.get("pradr", {}).get("lt"),
+                "longitude": taxpayer_details.get("pradr", {}).get("lg"),
+                "district": taxpayer_details.get("pradr", {}).get("dst"),
+                "city": taxpayer_details.get("pradr", {}).get("city"),
+                "pincode": taxpayer_details.get("pradr", {}).get("pncd")
+                # "nature_of_address": ntr
+            })
+
+            doc.save(ignore_permissions=True)
+            frappe.db.commit()
+
+            return {"status": "success", "message": "GST Verification updated successfully", "docname": doc.name}
+
+        return {"status": "error", "message": "Failed to fetch GST details", "response": api_response}
+    
+    except Exception as e:
+        frappe.log_error("Error in GST Verification",f"{str(e)}")
+        return {
+            "Error":f"{str(e)}"
+        }

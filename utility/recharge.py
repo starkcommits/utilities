@@ -67,7 +67,7 @@ def order(product_name: str, identity_number: str, order_amount: float = 0):
                 url = processor.base_url + method
             
                 response = requests.get(url, params=payload)
-
+                # response = frappe.make_get_request(url, headers = headers, params = payload)
                 frappe.log_error(
                     title="API Request Response",
                     message=f"Request Body: {payload}, Response Body: {response.text}",

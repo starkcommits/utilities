@@ -1,0 +1,43 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-03-01 12:25:50.376071",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "goods_description",
+  "column_break_ehvf",
+  "hsn_code"
+ ],
+ "fields": [
+  {
+   "fieldname": "goods_description",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Goods Description"
+  },
+  {
+   "fieldname": "hsn_code",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "HSN Code"
+  },
+  {
+   "fieldname": "column_break_ehvf",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2025-03-01 12:27:14.375985",
+ "modified_by": "Administrator",
+ "module": "Utility",
+ "name": "Business Goods Detail",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

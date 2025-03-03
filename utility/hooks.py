@@ -153,7 +153,10 @@ api = {
 		"utility.fetch_plan.get_plans",
 		"utility.verification.pan_card",
 		"utility.verification.aadhaar_card",
-		"utility.recharge.order"
+		"utility.recharge.order",
+		"utility.name_matcher.match_names",
+		"utility.face_matcher.match_faces",
+		"utility.verification.gst"
 	]
 }
 # Scheduled Tasks

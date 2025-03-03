@@ -1,0 +1,102 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "hash",
+ "creation": "2025-03-01 15:51:38.066382",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "floor_number",
+  "building_number",
+  "building_name",
+  "street",
+  "location",
+  "nature_of_address",
+  "column_break_wkpl",
+  "latitute",
+  "longitude",
+  "district",
+  "city",
+  "pincode"
+ ],
+ "fields": [
+  {
+   "fieldname": "building_number",
+   "fieldtype": "Data",
+   "label": "Building Number"
+  },
+  {
+   "fieldname": "building_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Building Name"
+  },
+  {
+   "fieldname": "street",
+   "fieldtype": "Data",
+   "label": "Street"
+  },
+  {
+   "fieldname": "location",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Location"
+  },
+  {
+   "fieldname": "floor_number",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Floor Number "
+  },
+  {
+   "fieldname": "latitute",
+   "fieldtype": "Data",
+   "label": "Latitude"
+  },
+  {
+   "fieldname": "longitude",
+   "fieldtype": "Data",
+   "label": "Longitude"
+  },
+  {
+   "fieldname": "district",
+   "fieldtype": "Data",
+   "label": "District"
+  },
+  {
+   "fieldname": "city",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "City"
+  },
+  {
+   "fieldname": "pincode",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Pincode"
+  },
+  {
+   "fieldname": "column_break_wkpl",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "nature_of_address",
+   "fieldtype": "Data",
+   "label": "Nature of Address"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2025-03-01 18:00:37.917775",
+ "modified_by": "Administrator",
+ "module": "Utility",
+ "name": "Company Address",
+ "naming_rule": "Random",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

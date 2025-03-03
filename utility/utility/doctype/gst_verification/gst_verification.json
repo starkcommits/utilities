@@ -1,0 +1,222 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:XRAY_GST{#####}",
+ "creation": "2025-03-01 11:32:38.329888",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "gst_detail_section",
+  "gstin_number",
+  "section_break_pfia",
+  "request_id",
+  "section_break_qwmp",
+  "nature_of_business",
+  "legal_name",
+  "taxpayer_type",
+  "ekyc_verification_flag",
+  "registration_date",
+  "status",
+  "field_visit_conducted",
+  "central_jurisdiction",
+  "central_jurisdiction_code",
+  "column_break_hqqc",
+  "aadhar_verification_flag",
+  "state_jurisdiction",
+  "cancellation_date",
+  "composition_scheme_rate",
+  "constitution_of_business",
+  "trade_name",
+  "aadhaar_verification_date",
+  "nature_of_business_activities_section",
+  "business_activities",
+  "section_break_cryl",
+  "addresses",
+  "tax_payer_return_details_section",
+  "filling_status",
+  "goods_and_services_section",
+  "business_goods_details"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_pfia",
+   "fieldtype": "Section Break",
+   "label": "API Request"
+  },
+  {
+   "fieldname": "request_id",
+   "fieldtype": "Data",
+   "label": "Request Id"
+  },
+  {
+   "fieldname": "section_break_qwmp",
+   "fieldtype": "Section Break",
+   "label": "Tax Payer Details"
+  },
+  {
+   "fieldname": "nature_of_business",
+   "fieldtype": "Data",
+   "label": "Nature of Business"
+  },
+  {
+   "fieldname": "aadhar_verification_flag",
+   "fieldtype": "Data",
+   "label": "Aadhar Verification Flag"
+  },
+  {
+   "fieldname": "legal_name",
+   "fieldtype": "Data",
+   "label": "Legal Name"
+  },
+  {
+   "fieldname": "state_jurisdiction",
+   "fieldtype": "Data",
+   "label": "State Jurisdiction"
+  },
+  {
+   "fieldname": "taxpayer_type",
+   "fieldtype": "Data",
+   "label": "Taxpayer Type"
+  },
+  {
+   "fieldname": "cancellation_date",
+   "fieldtype": "Data",
+   "label": "Cancellation Date"
+  },
+  {
+   "fieldname": "ekyc_verification_flag",
+   "fieldtype": "Data",
+   "label": "eKYC Verification Flag"
+  },
+  {
+   "fieldname": "column_break_hqqc",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_cryl",
+   "fieldtype": "Section Break",
+   "label": "Principal Addresses"
+  },
+  {
+   "fieldname": "composition_scheme_rate",
+   "fieldtype": "Data",
+   "label": "Composition Scheme Rate"
+  },
+  {
+   "fieldname": "registration_date",
+   "fieldtype": "Data",
+   "label": "Registration Date"
+  },
+  {
+   "fieldname": "constitution_of_business",
+   "fieldtype": "Data",
+   "label": "Constitution of Business"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Data",
+   "label": "Status"
+  },
+  {
+   "fieldname": "trade_name",
+   "fieldtype": "Data",
+   "label": "Trade Name"
+  },
+  {
+   "default": "0",
+   "fieldname": "field_visit_conducted",
+   "fieldtype": "Check",
+   "label": "Field Visit Conducted"
+  },
+  {
+   "fieldname": "aadhaar_verification_date",
+   "fieldtype": "Data",
+   "label": "Aadhaar Verification Date"
+  },
+  {
+   "fieldname": "central_jurisdiction",
+   "fieldtype": "Data",
+   "label": "Central Jurisdiction"
+  },
+  {
+   "fieldname": "tax_payer_return_details_section",
+   "fieldtype": "Section Break",
+   "label": "Tax Payer Return Details"
+  },
+  {
+   "fieldname": "filling_status",
+   "fieldtype": "Table",
+   "label": "Filling Status",
+   "options": "Taxpayer Return Details"
+  },
+  {
+   "fieldname": "goods_and_services_section",
+   "fieldtype": "Section Break",
+   "label": "Goods and Services"
+  },
+  {
+   "fieldname": "gst_detail_section",
+   "fieldtype": "Section Break",
+   "label": "GST Detail"
+  },
+  {
+   "fieldname": "business_goods_details",
+   "fieldtype": "Table",
+   "label": "Business Goods Details",
+   "options": "Business Goods Detail"
+  },
+  {
+   "fieldname": "gstin_number",
+   "fieldtype": "Data",
+   "label": "GSTIN Number"
+  },
+  {
+   "fieldname": "nature_of_business_activities_section",
+   "fieldtype": "Section Break",
+   "label": "Nature of Business Activities"
+  },
+  {
+   "fieldname": "business_activities",
+   "fieldtype": "Table",
+   "label": "Business Activities",
+   "options": "Business Activities"
+  },
+  {
+   "fieldname": "addresses",
+   "fieldtype": "Table",
+   "label": "Addresses",
+   "options": "Company Address"
+  },
+  {
+   "fieldname": "central_jurisdiction_code",
+   "fieldtype": "Data",
+   "label": "Central Jurisdiction Code"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-03-01 17:12:01.157816",
+ "modified_by": "Administrator",
+ "module": "Utility",
+ "name": "GST Verification",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}
