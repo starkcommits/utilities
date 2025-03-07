@@ -32,13 +32,14 @@ def order(product_name: str, identity_number: str, order_amount: float = 0):
         })
         order.insert(ignore_permissions=True)
         frappe.db.commit()
-
+        
         # Send request to payment processor
         processors = frappe.get_all(
             "Processor Table",
             filters={"parent":product.name,"is_active":1},
             fields=["name","processor"]
         )
+        
 
         for temp in processors:
             processor_name = temp["processor"]  # Get processor function name as a string
@@ -57,7 +58,7 @@ def order(product_name: str, identity_number: str, order_amount: float = 0):
 
                 method = frappe.db.get_value(
                     "API Methods",
-                    {"method_name":"Make Payment"},
+                    {"method_name":"Make Payment"}, 
                     "method_end_point"
                 )
                 if not method :

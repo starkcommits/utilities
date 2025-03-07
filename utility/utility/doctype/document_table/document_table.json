@@ -2,56 +2,52 @@
  "actions": [],
  "allow_rename": 1,
  "autoname": "hash",
- "creation": "2025-02-18 11:29:00.305652",
+ "creation": "2025-03-07 01:58:04.898429",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "product_name",
-  "product_id",
-  "column_break_eplx",
-  "service_name",
-  "service_id"
+  "document_name",
+  "column_break_gszm",
+  "type",
+  "column_break_jxyn",
+  "date"
  ],
  "fields": [
   {
-   "fieldname": "service_id",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "label": "Service ID"
-  },
-  {
-   "fieldname": "service_name",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "label": "Service Name"
-  },
-  {
-   "fieldname": "column_break_eplx",
+   "fieldname": "column_break_gszm",
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "product_name",
-   "fieldtype": "Link",
-   "in_list_view": 1,
-   "label": "Product Name",
-   "options": "Product",
-   "unique": 1
-  },
-  {
-   "fieldname": "product_id",
+   "fieldname": "type",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Product ID"
+   "label": "Type"
+  },
+  {
+   "fieldname": "column_break_jxyn",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Date"
+  },
+  {
+   "fieldname": "document_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Document Name"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-03-07 14:33:00.682632",
+ "modified": "2025-03-07 11:49:55.441599",
  "modified_by": "Administrator",
  "module": "Utility",
- "name": "Provider Detail",
+ "name": "Document Table",
  "naming_rule": "Random",
  "owner": "Administrator",
  "permissions": [],

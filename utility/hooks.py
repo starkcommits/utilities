@@ -156,7 +156,8 @@ api = {
 		"utility.recharge.order",
 		"utility.name_matcher.match_names",
 		"utility.face_matcher.match_faces",
-		"utility.verification.gst"
+		"utility.verification.gst",
+		"utility.verification.mca"
 	]
 }
 # Scheduled Tasks

@@ -2,56 +2,60 @@
  "actions": [],
  "allow_rename": 1,
  "autoname": "hash",
- "creation": "2025-02-18 11:29:00.305652",
+ "creation": "2025-03-07 01:52:31.105030",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "product_name",
-  "product_id",
-  "column_break_eplx",
-  "service_name",
-  "service_id"
+  "title",
+  "id",
+  "date",
+  "column_break_ozhi",
+  "status",
+  "description"
  ],
  "fields": [
   {
-   "fieldname": "service_id",
+   "fieldname": "title",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Service ID"
+   "label": "Title"
   },
   {
-   "fieldname": "service_name",
+   "fieldname": "id",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Service Name"
+   "label": "ID"
   },
   {
-   "fieldname": "column_break_eplx",
+   "fieldname": "date",
+   "fieldtype": "Data",
+   "label": "Date"
+  },
+  {
+   "fieldname": "column_break_ozhi",
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "product_name",
-   "fieldtype": "Link",
-   "in_list_view": 1,
-   "label": "Product Name",
-   "options": "Product",
-   "unique": 1
-  },
-  {
-   "fieldname": "product_id",
+   "fieldname": "status",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Product ID"
+   "label": "Status"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "in_list_view": 1,
+   "label": "Description"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-03-07 14:33:00.682632",
+ "modified": "2025-03-07 11:27:47.562691",
  "modified_by": "Administrator",
  "module": "Utility",
- "name": "Provider Detail",
+ "name": "Paper Whitelist",
  "naming_rule": "Random",
  "owner": "Administrator",
  "permissions": [],

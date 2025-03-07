@@ -213,18 +213,31 @@ def make_transaction(doc, method):
         
         if doc.order_status == "Created":
             create_transaction(doc)
-        elif doc.order_status == "Completed":
-            frappe.db.set_value(
-                "Payment Transaction Logs",
-                doc.transaction_id,
-                {
-                    "status": "Completed",
-                    "transaction_type": "Debit (Final)"
-                },
-                update_modified=False
-            )
+        elif doc.order_status == "Completed" and not doc.order_remark:
+            # transaction = frappe.db.set_value(
+            #     "Payment Transaction Logs",
+            #     doc.transaction_id,
+            #     {
+            #         "status": "Completed",
+            #         "transaction_type": "Debit (Final)"
+            #     },
+            #     update_modified=False
+            # )
+            # frappe.db.commit()
+
+            transaction = frappe.get_doc("Payment Transaction Logs",doc.transaction_id)
+            transaction.status="Completed"
+            transaction.transaction_type="Debit (Final)"
+
+            transaction.save(ignore_permissions=True)
+            frappe.db.commit()
+
+            doc.order_remark= "Order created Successfully."
+            doc.db_update()
+            # doc.save(ignore_permissions=True)
             frappe.db.commit()
             doc.reload()
+
         elif doc.order_status == "Canceled":
             frappe.db.set_value(
                 "Payment Transaction Logs",

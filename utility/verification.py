@@ -417,10 +417,169 @@ def gst(product_name: str, identity_number: str):
 
             doc.save(ignore_permissions=True)
             frappe.db.commit()
+            
+            order.order_status="Completed"
+            order.save(ignore_permissions=True)
 
             return {"status": "success", "message": "GST Verification updated successfully", "docname": doc.name}
 
         return {"status": "error", "message": "Failed to fetch GST details", "response": api_response}
+    
+    except Exception as e:
+        frappe.log_error("Error in GST Verification",f"{str(e)}")
+        return {
+            "Error":f"{str(e)}"
+        }
+
+@frappe.whitelist()
+def mca(product_name: str, identity_number: str):
+    try:
+        partner = cp.get_channel_partner()
+
+        # Check if there's an error in the result
+        if "error" in partner:
+            return partner
+        
+        products = pdt.get_product(product_name, "Verification")
+
+        if "error" in products:
+            return products
+
+        channel_partner = partner["channel_partner"]
+        product = products["product"]
+
+        # Send request to payment processor
+        processors = frappe.get_all(
+            "Processor Table",
+            filters={"parent":product.name,"is_active":1},
+            fields=["name","processor"]
+        )
+        processor = frappe.get_doc("Processor", processors[0].processor)
+
+        # Create an order
+        order = frappe.get_doc({
+            "doctype": "Orders",
+            "order_amount": 0,
+            "product_name": product.product_name,
+            "identity_number": identity_number,
+            "channel": "Android",
+            "processor":processor.name,
+            "channel_partner": channel_partner.name,
+            "order_status": "Created"
+        })
+
+        order.insert(ignore_permissions=True)
+        frappe.db.commit()
+
+        doc = frappe.get_doc({
+            'doctype':'MCA Verification',
+            'cin_number': identity_number
+        })
+        doc.insert(ignore_permissions=True)
+        frappe.db.commit()
+
+        method = next((m for m in processor.api_methods if m.method_name == "CIN Verification"), None)
+
+        if not method:
+            raise frappe.ValidationError("CIN Verification method not found in processor configuration")
+        
+        api_token = next((config.api_key for config in processor.api_config if config.key_name == "Authorization Key"), None)
+
+
+        url = processor.base_url + method.method_end_point
+        
+        headers = {
+            "Authorization": f"Bearer {api_token}",
+            "Content-Type": "application/json"
+        }
+        
+        payload = {
+            "cin":doc.cin_number
+        }
+
+        response = requests.get(url, params=payload, headers=headers)
+        # response = frappe.make_post_request(url, data=payload, headers=headers)
+        
+        frappe.log_error(
+            title="API Request Response",
+            message=f"Request Body: {payload}, Response Body: {response.text}",
+            reference_doctype="Orders",  # The related document type
+            reference_name=order.name  # The related order ID
+        )
+        api_response = response.json()
+        if not api_response:
+            return {"status": "error", "message": "Failed to fetch MCA details"}
+
+        # Map API response to the DocType fields
+        doc.company_name = api_response.get("Company Name", "")
+        doc.status = api_response.get("Status", "")
+        doc.incorporation_date = api_response.get("Incorporation Date", "")
+        doc.state = api_response.get("State", "")
+        doc.roc = api_response.get("ROC", "")
+        doc.last_balance_sheet = api_response.get("Last Balance Sheet", "")
+        doc.last_agm = api_response.get("Last AGM", "")
+        doc.paid_up_capital = api_response.get("Paid Up Capital", "")
+        doc.authorized_capital = api_response.get("Authorized Capital", "")
+
+        # Clear existing child table entries before inserting new ones
+        doc.set("current_directors", [])
+        doc.set("past_directors", [])
+        doc.set("patents", [])
+        doc.set("trademarks", [])
+        doc.set("documents", [])
+
+        # Populate Current Directors
+        for director in api_response.get("Current Directors", []):
+            doc.append("current_directors", {
+                "director_name": director.get("Name", ""),
+                "role": director.get("Role", ""),
+                "position_duration": director.get("Position Duration", "")
+            })
+
+        # Populate Past Directors
+        for director in api_response.get("Past Directors", []):
+            doc.append("past_directors", {
+                "director_name": director.get("Name", ""),
+                "role": director.get("Role", ""),
+                "position_duration": director.get("Position Duration", "")
+            })
+
+        # Populate Patents
+        for patent in api_response.get("Patents", []):
+            doc.append("patents", {
+                "title": patent.get("Title", ""),
+                "id": patent.get("ID", ""),
+                "date": patent.get("Date", ""),
+                "status": patent.get("Status", ""),
+                "description": patent.get("Description", "")
+            })
+
+        # Populate Trademarks
+        for trademark in api_response.get("Trademarks", []):
+            doc.append("trademark", {
+                "trademark_name": trademark.get("Name", ""),
+                "id": trademark.get("ID", ""),
+                "date": trademark.get("Date", ""),
+                "status": trademark.get("Status", ""),
+                "class": trademark.get("Class", ""),
+                "description": trademark.get("Description", "")
+            })
+
+        # Populate Documents
+        for document in api_response.get("Documents", []):
+            doc.append("documents", {
+                "document_name": document.get("Name", ""),
+                "type": document.get("Type", ""),
+                "date": document.get("Date", "")
+            })
+
+        doc.save(ignore_permissions=True)
+        frappe.db.commit()
+
+        order.order_status="Completed"
+        order.save(ignore_permissions=True)
+
+        return {"status": "success", "message": "CIN Verification updated successfully", "docname": doc.name}
     
     except Exception as e:
         frappe.log_error("Error in GST Verification",f"{str(e)}")

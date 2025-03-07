@@ -61,8 +61,7 @@ def get_provider_detail(product_name):
                         "product_name": provider["provider_name"],
                         "product_id": provider["provider_id"],
                         "service_name": provider["service_name"],
-                        "service_id": provider["service_id"],
-                        "is_active": 1
+                        "service_id": provider["service_id"]
                     })
             
             # Save the processor document

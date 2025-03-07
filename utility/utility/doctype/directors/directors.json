@@ -2,56 +2,52 @@
  "actions": [],
  "allow_rename": 1,
  "autoname": "hash",
- "creation": "2025-02-18 11:29:00.305652",
+ "creation": "2025-03-07 01:51:01.844941",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "product_name",
-  "product_id",
-  "column_break_eplx",
-  "service_name",
-  "service_id"
+  "director_name",
+  "column_break_zzfh",
+  "role",
+  "column_break_dmlv",
+  "position_duration"
  ],
  "fields": [
   {
-   "fieldname": "service_id",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "label": "Service ID"
-  },
-  {
-   "fieldname": "service_name",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "label": "Service Name"
-  },
-  {
-   "fieldname": "column_break_eplx",
+   "fieldname": "column_break_zzfh",
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "product_name",
-   "fieldtype": "Link",
-   "in_list_view": 1,
-   "label": "Product Name",
-   "options": "Product",
-   "unique": 1
-  },
-  {
-   "fieldname": "product_id",
+   "fieldname": "role",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Product ID"
+   "label": "Role"
+  },
+  {
+   "fieldname": "column_break_dmlv",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "position_duration",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Position Duration"
+  },
+  {
+   "fieldname": "director_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Director Name"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-03-07 14:33:00.682632",
+ "modified": "2025-03-07 11:42:14.358717",
  "modified_by": "Administrator",
  "module": "Utility",
- "name": "Provider Detail",
+ "name": "Directors",
  "naming_rule": "Random",
  "owner": "Administrator",
  "permissions": [],

@@ -1,0 +1,169 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:XRAY_CIN{#####}",
+ "creation": "2025-03-07 01:44:04.203452",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "company_detail_section",
+  "cin_number",
+  "company_name",
+  "paid_up_capital",
+  "authorized_capital",
+  "incorporation_date",
+  "column_break_welc",
+  "roc",
+  "last_balance_sheet",
+  "state",
+  "last_agm",
+  "status",
+  "directors_section",
+  "current_directors",
+  "past_directors",
+  "section_break_mier",
+  "patents",
+  "trademarks_section",
+  "trademark",
+  "section_break_dlhf",
+  "documents"
+ ],
+ "fields": [
+  {
+   "default": "0",
+   "fieldname": "status",
+   "fieldtype": "Check",
+   "label": "Status"
+  },
+  {
+   "default": "0",
+   "fieldname": "incorporation_date",
+   "fieldtype": "Check",
+   "label": "Incorporation Date"
+  },
+  {
+   "fieldname": "paid_up_capital",
+   "fieldtype": "Data",
+   "label": "Paid Up Capital"
+  },
+  {
+   "fieldname": "authorized_capital",
+   "fieldtype": "Data",
+   "label": "Authorized Capital"
+  },
+  {
+   "fieldname": "column_break_welc",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "roc",
+   "fieldtype": "Data",
+   "label": "ROC"
+  },
+  {
+   "fieldname": "last_balance_sheet",
+   "fieldtype": "Data",
+   "label": "Last Balance Sheet"
+  },
+  {
+   "fieldname": "state",
+   "fieldtype": "Data",
+   "label": "State"
+  },
+  {
+   "fieldname": "last_agm",
+   "fieldtype": "Data",
+   "label": "Last AGM"
+  },
+  {
+   "fieldname": "directors_section",
+   "fieldtype": "Section Break",
+   "label": "Directors"
+  },
+  {
+   "fieldname": "current_directors",
+   "fieldtype": "Table",
+   "label": "Current Directors",
+   "options": "Directors"
+  },
+  {
+   "fieldname": "past_directors",
+   "fieldtype": "Table",
+   "label": "Past Directors",
+   "options": "Directors"
+  },
+  {
+   "fieldname": "section_break_mier",
+   "fieldtype": "Section Break",
+   "label": "Published"
+  },
+  {
+   "fieldname": "patents",
+   "fieldtype": "Table",
+   "label": "Patents",
+   "options": "Paper Whitelist"
+  },
+  {
+   "fieldname": "section_break_dlhf",
+   "fieldtype": "Section Break",
+   "label": "Documents"
+  },
+  {
+   "fieldname": "documents",
+   "fieldtype": "Table",
+   "label": "Documents",
+   "options": "Document Table"
+  },
+  {
+   "fieldname": "company_detail_section",
+   "fieldtype": "Section Break",
+   "label": "Company Detail"
+  },
+  {
+   "fieldname": "cin_number",
+   "fieldtype": "Data",
+   "label": "CIN Number"
+  },
+  {
+   "fieldname": "company_name",
+   "fieldtype": "Data",
+   "label": "Company Name"
+  },
+  {
+   "fieldname": "trademarks_section",
+   "fieldtype": "Section Break",
+   "label": "Trademarks"
+  },
+  {
+   "fieldname": "trademark",
+   "fieldtype": "Table",
+   "label": "Trademark",
+   "options": "Trademark Table"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-03-07 11:51:01.535773",
+ "modified_by": "Administrator",
+ "module": "Utility",
+ "name": "MCA Verification",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
