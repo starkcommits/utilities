@@ -9,12 +9,13 @@
  "field_order": [
   "circle_id",
   "column_break_sfsf",
-  "cirlce_name"
+  "circle_name"
  ],
  "fields": [
   {
    "fieldname": "circle_id",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Circle ID",
    "unique": 1
   },
@@ -23,15 +24,15 @@
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "cirlce_name",
+   "fieldname": "circle_name",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Cirlce Name"
+   "label": "Circle Name"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-02-08 11:36:53.593432",
+ "modified": "2025-03-29 16:08:05.086673",
  "modified_by": "Administrator",
  "module": "Utility",
  "name": "Plan Circle",

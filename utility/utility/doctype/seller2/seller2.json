@@ -1,0 +1,74 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:seller_id",
+ "creation": "2025-02-08 11:56:33.095069",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "seller_id",
+  "seller_name",
+  "column_break_qpku",
+  "seller_gstin",
+  "contact_details",
+  "is_active"
+ ],
+ "fields": [
+  {
+   "fieldname": "seller_id",
+   "fieldtype": "Data",
+   "label": "Seller Id ",
+   "unique": 1
+  },
+  {
+   "fieldname": "seller_name",
+   "fieldtype": "Data",
+   "label": "Seller Name"
+  },
+  {
+   "fieldname": "seller_gstin",
+   "fieldtype": "Data",
+   "label": "Seller GSTIN"
+  },
+  {
+   "fieldname": "contact_details",
+   "fieldtype": "Data",
+   "label": "Contact Details"
+  },
+  {
+   "fieldname": "column_break_qpku",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_active",
+   "fieldtype": "Check",
+   "label": "Is Active"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-02-08 16:55:24.185783",
+ "modified_by": "Administrator",
+ "module": "Utility",
+ "name": "Seller2",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

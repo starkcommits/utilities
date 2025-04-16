@@ -50,16 +50,19 @@ def create_transaction(doc):
             plateform_fee_value = (doc.order_amount * plateform_fee_value) / 100
         transaction_amount += plateform_fee_value
 
+        # Deduct Wallet Balance (Row is locked, so no race condition)
+        new_balance = available_balance - transaction_amount
         # Ensure Sufficient Balance
-        if available_balance < transaction_amount:
+        if doc.product_name == "Wallet Top Up":
+            new_balance = available_balance
+
+        elif available_balance < transaction_amount:
             doc.order_status = "Canceled"
             doc.order_remark = "Insufficient balance."
             doc.save(ignore_permissions=True)
             frappe.db.commit()
             frappe.throw("Insufficient balance. Please recharge your wallet.")
 
-        # Deduct Wallet Balance (Row is locked, so no race condition)
-        new_balance = available_balance - transaction_amount
         frappe.db.sql("""
             UPDATE `tabPartner Wallet`
             SET balance = %s
@@ -227,7 +230,10 @@ def make_transaction(doc, method):
 
             transaction = frappe.get_doc("Payment Transaction Logs",doc.transaction_id)
             transaction.status="Completed"
-            transaction.transaction_type="Debit (Final)"
+            if doc.product_name == "Wallet Top Up":
+                transaction.transaction_type="Credit (Top-up)"
+            else:
+                transaction.transaction_type="Debit (Final)"
 
             transaction.save(ignore_permissions=True)
             frappe.db.commit()
@@ -254,3 +260,26 @@ def make_transaction(doc, method):
         # Always clear the flag regardless of success or failure
         if hasattr(doc, '_payment_transaction_logs_update_in_progress'):
             doc._payment_transaction_logs_update_in_progress = False 
+
+
+@frappe.whitelist(allow_guest=True)
+def logs(user_email,limit):
+    if not user_email:
+        frappe.throw("user_email is required")
+
+    logs = frappe.db.sql(f"""
+        SELECT 
+            name,
+            product_name,
+            order_id,
+            discount,
+            transaction_amount,
+            status,
+            creation as created_on
+        FROM `tabPayment Transaction Logs`
+        WHERE channel_partner = %s
+        ORDER BY creation DESC
+        LIMIT {limit}
+    """, (user_email,), as_dict=True)
+
+    return logs

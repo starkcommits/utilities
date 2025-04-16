@@ -15,6 +15,7 @@
   "transaction_id",
   "transaction_remark",
   "read_only_pbyo",
+  "refund_remark",
   "column_break_sawd",
   "channel_partner",
   "processor",
@@ -112,11 +113,16 @@
    "fieldname": "identity_number",
    "fieldtype": "Data",
    "label": "Identity Number"
+  },
+  {
+   "fieldname": "refund_remark",
+   "fieldtype": "Data",
+   "label": "Refund remark "
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-02-25 16:38:15.354944",
+ "modified": "2025-03-23 18:45:59.496134",
  "modified_by": "Administrator",
  "module": "Utility",
  "name": "Orders",

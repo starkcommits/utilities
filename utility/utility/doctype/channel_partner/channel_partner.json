@@ -7,12 +7,10 @@
  "engine": "InnoDB",
  "field_order": [
   "overview",
-  "partner_wallet",
-  "column_break_mfpd",
-  "wallet_balance",
-  "column_break_dauh",
   "is_api",
+  "column_break_zmyx",
   "is_mobile",
+  "column_break_bfvr",
   "is_dashboard",
   "profile_section",
   "company_name",
@@ -23,7 +21,7 @@
   "contact_details",
   "status",
   "product_pricing_section",
-  "table_nhbu",
+  "product_pricing",
   "members_section",
   "team"
  ],
@@ -47,18 +45,9 @@
    "label": "Is Mobile"
   },
   {
-   "fieldname": "column_break_mfpd",
-   "fieldtype": "Column Break"
-  },
-  {
    "fieldname": "product_pricing_section",
    "fieldtype": "Section Break",
    "label": "Product Pricing"
-  },
-  {
-   "fieldname": "table_nhbu",
-   "fieldtype": "Table",
-   "options": "Product Pricing"
   },
   {
    "fieldname": "profile_section",
@@ -92,26 +81,6 @@
    "label": "Contact Details"
   },
   {
-   "fieldname": "partner_wallet",
-   "fieldtype": "Link",
-   "label": "Partner Wallet",
-   "options": "Partner Wallet"
-  },
-  {
-   "fetch_from": "partner_wallet.balance",
-   "fieldname": "wallet_balance",
-   "fieldtype": "Data",
-   "in_filter": 1,
-   "in_list_view": 1,
-   "in_standard_filter": 1,
-   "label": "Wallet Balance",
-   "read_only": 1
-  },
-  {
-   "fieldname": "column_break_dauh",
-   "fieldtype": "Column Break"
-  },
-  {
    "description": "Manage channel partners, configurations and pricing configurations.",
    "fieldname": "overview",
    "fieldtype": "Section Break",
@@ -137,11 +106,25 @@
    "fieldtype": "Table",
    "label": "Team",
    "options": "Team"
+  },
+  {
+   "fieldname": "column_break_zmyx",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_bfvr",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "product_pricing",
+   "fieldtype": "Table",
+   "label": "Product Pricing",
+   "options": "Product Pricing"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-02-27 12:24:13.955716",
+ "modified": "2025-04-05 11:04:56.562957",
  "modified_by": "Administrator",
  "module": "Utility",
  "name": "Channel Partner",

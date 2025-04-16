@@ -1,7 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "field:config_name",
+ "autoname": "hash",
  "creation": "2025-02-08 12:15:08.453602",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -9,15 +9,18 @@
  "field_order": [
   "config_name",
   "column_break_ctmk",
-  "config_value"
+  "config_value",
+  "column_break_sgqd",
+  "remark",
+  "column_break_bduy",
+  "required"
  ],
  "fields": [
   {
    "fieldname": "config_name",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Config Name",
-   "unique": 1
+   "label": "Config Name"
   },
   {
    "fieldname": "config_value",
@@ -28,16 +31,37 @@
   {
    "fieldname": "column_break_ctmk",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_sgqd",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "remark",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Remark"
+  },
+  {
+   "fieldname": "column_break_bduy",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "required",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Required"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-02-08 12:16:40.548119",
+ "modified": "2025-04-02 18:33:37.676071",
  "modified_by": "Administrator",
  "module": "Utility",
  "name": "ADDON Config",
- "naming_rule": "By fieldname",
+ "naming_rule": "Random",
  "owner": "Administrator",
  "permissions": [],
  "sort_field": "modified",

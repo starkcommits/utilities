@@ -1,22 +1,27 @@
 import frappe
 import requests
-from frappe import _
 from . import channel_partner as cp
 from . import processor as pcr
 from . import product as pdt
+from frappe import _
 
-@frappe.whitelist()
-def order(user_email:str, product_name: str, identity_number: str, pin : int, order_amount: float = 0):
+@frappe.whitelist(allow_guest=True)
+def order():
     try:
-
-        partner = frappe.get_doc("Channel Partner",user_email)
+        data = frappe._dict(frappe.request.get_json())
+        if not data:
+            return {
+                "status":"error",
+                "message":"Please send required fields"
+            }
+        
+        partner = frappe.get_doc("Channel Partner",data.user_email)
 
         if not partner:
             return {
                 "error":"You are not a registered user. Please do registration first."
             }
-        frappe.log_error("Channel Partner",partner)
-
+        
         wallet = frappe.get_doc("Partner Wallet",partner.name)
         
         if wallet.status !="Active":
@@ -24,12 +29,12 @@ def order(user_email:str, product_name: str, identity_number: str, pin : int, or
                 "message":"Wallet is not active. Please contact admininstrator"
             }
 
-        if wallet.pin !=pin:
+        if wallet.pin != data.pin:
             return {
                 "Your pin is incorrect. Enter your correct pin."
             }
-        
-        products = pdt.get_product(product_name,"Recharge")
+
+        products = pdt.get_product(data.product_name,"Electricity")
 
         if "error" in products:
             return products
@@ -39,9 +44,9 @@ def order(user_email:str, product_name: str, identity_number: str, pin : int, or
         # Create an order
         order = frappe.get_doc({
             "doctype": "Orders",
-            "order_amount": order_amount,
-            "product_name": product_name,
-            "identity_number": identity_number,
+            "order_amount": data.order_amount,
+            "product_name": data.product_name,
+            "identity_number": data.identity_number,
             "channel": "Android",
             "channel_partner": partner.name,
             "order_status": "Created"
@@ -66,9 +71,26 @@ def order(user_email:str, product_name: str, identity_number: str, pin : int, or
             if processor_function and callable(processor_function):
                 result = processor_function(order)  # Call the function dynamically
                 processor = result["processor"]
-                payload = result["payload"]
+                payload2 = result["payload"]
                 headers = result["headers"]
+                
+                payload = {
+                    "api_token": payload2["api_token"],
+                    "provider_id": payload2["provider_id"],
+                    "amount": order.order_amount,
+                    "optional1": data.identity_number,
+                    "client_id": order.name,
+                    "environment": "UAT"
+                }
+                if data.optional2:
+                    payload["optional2"]=data.optional2
 
+                if data.optional3:
+                    payload["optional3"]=data.optional3
+
+                if data.optional4:
+                    payload["optional4"]=data.optional4
+                    
                 order.processor = processor.name
                 order.save(ignore_permissions=True)
 
@@ -98,7 +120,8 @@ def order(user_email:str, product_name: str, identity_number: str, pin : int, or
                     order.save(ignore_permissions=True)
 
                     frappe.db.commit()
-                    return {"status": "success","remark":"Transaction Successful","product_name":product.name, "order_id":order.name,"pay_id": response_data["payid"],"created_on":order.creation}
+                    return {"status": "success", "remark":"Transaction Successful", "product_name":product.name, "order_id":order.name,"pay_id": response_data["payid"],"created_on":order.creation}
+
                 elif response_data["status"] == "pending":
                     frappe.db.commit()
                     return {"status": "pending", "remark": "Transaction processing", "product_name":product.name, "order_id":order.name,"pay_id": response_data["payid"],"created_on":order.creation}
@@ -114,89 +137,10 @@ def order(user_email:str, product_name: str, identity_number: str, pin : int, or
             else:
                 frappe.log_error(f"Processor function '{processor_name}' not found", "Order Processing Error")
         return {
-            "error":"Unable to proceed recharge. All processors are busy. Please try again."
+            "error":"Unable to proceed Bill payment. All processors are busy. Please try again."
         }
 
     except Exception as e:
-        frappe.log_error("Error in recharge processing",f"{str(e)}")
+        frappe.log_error("Error in processing bill payment",f"{str(e)}")
         return {"Error":f"{str(e)}"}
 
-
-@frappe.whitelist()
-def find_operator(mobile_number):
-    try:
-        # Try fetching existing operator record
-        operator = frappe.get_doc("Users Operator", mobile_number)
-        return {
-            "product_name": operator.product_name,
-            "state": operator.state_name
-        }
-
-    except frappe.DoesNotExistError:
-        frappe.log_error("Operator not found locally", f"Mobile: {mobile_number}")
-
-        # Fetch processor config
-        processor = frappe.get_doc("Processor", "Scriza")
-
-        api_token = next(
-            (config.api_key for config in processor.api_config if config.key_name == "API Token"),
-            None
-        )
-
-        if not api_token:
-            raise frappe.ValidationError(_("API Token not found in processor configuration"))
-
-        method = frappe.db.get_value(
-            "API Methods",
-            {"method_name": "Get Operator"},
-            "method_end_point"
-        )
-
-        if not method:
-            frappe.throw(_(f"{processor.name} doesn't have Get Operator method"))
-
-        # Construct API request
-        payload = {
-            "api_token": api_token,
-            "mobile_number": mobile_number
-        }
-
-        url = processor.base_url + method
-
-        try:
-            response = requests.post(url, params=payload)
-            response.raise_for_status()
-            response_data = response.json()
-        except Exception as api_error:
-            frappe.log_error("API call failed", str(api_error))
-            return {
-                "error": "Failed to reach operator lookup API"
-            }
-
-        if response_data.get("status") == "success":
-            details = response_data.get("details", {})
-
-            # Create and insert new operator record
-            operator = frappe.new_doc("Users Operator")
-            operator.product_name = details.get("provider_name")
-            operator.mobile_number = mobile_number
-            operator.circle_id = details.get("state_id")
-            operator.state_name = details.get("state_name")
-            operator.name = mobile_number  # Assuming mobile number is used as name
-            operator.insert(ignore_permissions=True)
-            frappe.db.commit()
-
-            return {
-                "product_name": details.get("provider_name"),
-                "state": details.get("state_name")
-            }
-
-        return {
-            "error": "Operator not found for this mobile number"
-        }
-
-    except Exception as e:
-        frappe.log_error("Unexpected error in find_operator", frappe.get_traceback())
-        return {
-            "error": "An unexpected error occurred. Please check logs."
-        }

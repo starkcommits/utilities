@@ -1,186 +1,169 @@
 import frappe
-import requests
-import time
 import json
-import random
-
+from frappe import _
 from typing import Optional, Dict, Any
+import requests
+from . import channel_partner as cp
+from . import processor as pcr
+from . import product as pdt
 
-def document_verification(product, identity_number: str,processor,order):
-    method = None
-    payload = None
-    if product.name == "PanCard Detail Finder":
-        doc = frappe.get_doc({
-            'doctype':'PanCard Verification',
-            'pan_card_number': identity_number
-        })
-        doc.insert()
-        frappe.db.commit()
 
-        method = next((m for m in processor.api_methods if m.method_name == "Pan Card Verification"), None)
-
-        if not method:
-            raise frappe.ValidationError("Pan Card Verification method not found in processor configuration")
-        
-        payload = {
-            "client_ref_num":order.name,
-            "pan":doc.pan_card_number
-        }
-    else :
-        doc = frappe.get_doc({
-            'doctype':'AahaarCard Verification',
-            'aadhaar_card_number': identity_number
-        })
-        doc.insert()
-        frappe.db.commit()
-
-        method = next((m for m in processor.api_methods if m.method_name == "Aadhaar Card Verification"), None)
-
-        if not method:
-            raise frappe.ValidationError("Aadhaar Card Verification method not found in processor configuration")
-        
-        payload = {
-            "client_ref_num":order.name,
-            "aadhaar":doc.aadhaar_card_number
-        }
-    
-    api_token = next((config.api_key for config in processor.api_config if config.key_name == "Authorization Key"), None)
-
-    # if not api_token:
-    #     raise frappe.ValidationError("API Token not found in processor configuration")
-    url = processor.base_url + method.method_end_point
-    # headers = {"Content-Type": "application/json"}
-    headers = {
-        "Content-Type": "application/json",
-        "Authorization": f"Basic {api_token}"
-    }
+@frappe.whitelist(allow_guest=True)
+def get_product(product_name):
     try:
+
+        """Fetch product details without unnecessary metadata"""
+        product = frappe.get_doc("Product", product_name)
+
+        # Extract required fields
+        response = {
+            "product_name": product.product_name,
+            "icon": product.icon,
+            "category": product.category,
+            "bbps_config": []
+        }
+
+        # Extract child table data (bbps_config)
+        for config in product.bbps_config:
+            response["bbps_config"].append({
+                "config_name": config.config_name,
+                "config_value": config.config_value,
+                "remark": config.remark
+            })
+
+        return response
+    except Exception as e:
+        frappe.log_error("Error in fetching product",f"{str(e)}")
+        return {
+            "status":"error",
+            "message":f"Error in fetching {product_name} detail"
+        }
+
+
+
+@frappe.whitelist(allow_guest=True)
+def verify_bill():
+    try:
+        data = frappe._dict(frappe.request.get_json())
+        if not data:
+            return {
+                "status":"error",
+                "message":"Please send required fields"
+            }
         
-        response = requests.post(url, json=payload, headers=headers, timeout=30)
-        
-        frappe.log_error(
-            title="API Request Response",
-            message=f"Request Body: {payload}, Response Body: {response.text}",
-            reference_doctype="Orders",  # The related document type
-            reference_name=order.name  # The related order ID
+        # Get processor document
+        processor = frappe.get_doc(
+            "Processor",
+            {"processor_name": "Scriza"}
         )
-        api_response = response.json()
-        if api_response["http_response_code"] == 200:
-            if product.name == "PanCard Detail Finder":
-                doc.request_id = api_response.get("request_id")
-                doc.client_ref_id = api_response.get("client_ref_num")
-                doc.pan_number = api_response.get("result", {}).get("pan")
-                doc.pan_type = api_response.get("result", {}).get("pan_type")
-                doc.aadhaar_number = api_response.get("result", {}).get("aadhaar_number")
-                doc.aadhaar_linked = 1 if api_response.get("result", {}).get("aadhaar_linked") else 0
-                doc.date_of_birth = frappe.utils.get_datetime_str(frappe.utils.get_datetime_str(api_response.get("result", {}).get("dob"))),
-                doc.mobile_number = api_response.get("result", {}).get("mobile")
-                doc.email_id = api_response.get("result", {}).get("email")
-                doc.pan_status = api_response.get("result", {}).get("pan_status")
-                doc.pan_allotment_date = frappe.utils.get_datetime_str(api_response.get("result", {}).get("pan_allotment_date")),
-                doc.full_name = api_response.get("result", {}).get("fullname")
-                doc.first_name = api_response.get("result", {}).get("first_name")
-                doc.middle_name = api_response.get("result", {}).get("middle_name")
-                doc.last_name = api_response.get("result", {}).get("last_name")
-                doc.gender = api_response.get("result", {}).get("gender")
-                doc.is_sole_proprietor = 1 if api_response.get("result", {}).get("is_sole_proprietor") == "Y" else 0
-                doc.is_director = 1 if api_response.get("result", {}).get("is_director") == "Y" else 0
-                doc.is_salaried = 1 if api_response.get("result", {}).get("is_salaried") == "Y" else 0
-                
-                # Address fields
-                address = api_response.get("result", {}).get("address", {})
-                doc.building_name = address.get("building_name")
-                doc.locality = address.get("locality")
-                doc.street_name = address.get("street_name")
-                doc.city = address.get("city")
-                doc.state = address.get("state")
-                doc.country = address.get("country")
-                doc.pin_code = address.get("pincode")
-
-                doc.save(ignore_permissions=True)
-                frappe.db.commit()
-            else: 
-                doc.request_id = api_response.get("request_id")
-                doc.aadhaar_age_band = api_response.get("result", {}).get("aadhaar_age_band")
-                doc.aadhaar_state = api_response.get("result", {}).get("aadhaar_state")
-                doc.aadhaar_gender = api_response.get("result", {}).get("aadhaar_gender")
-                doc.aadhaar_phone = api_response.get("result", {}).get("aadhaar_phone")
-                doc.aadhaar_result = api_response.get("result", {}).get("aadhaar_result")
-
-                doc.save(ignore_permissions=True)
-                frappe.db.commit()
-            
-            order.order_status="Completed"
-            order.save(ignore_permissions=True)
-            
-            # Convert to dict and remove unwanted metadata fields
-            response_data = doc.as_dict()
-            doc_name = response_data.get("name")
-            response_data['id'] = doc_name
-            metadata_fields = [
-                "name", "owner", "creation", "modified", "modified_by",
-                "docstatus", "idx","doctype", "request_id"
-            ]
-    
-            # Remove metadata fields
-            for field in metadata_fields:
-                response_data.pop(field, None)
-            return response_data
-
-        elif response_data["status"] == "pending":
-            frappe.db.commit()
-            return {"status": "pending", "message": "Transaction processing", "order_id": order.name, "pay_id": response_data["payid"]}
         
-        else:
-            order.order_status="Canceled"
-            order.save(ignore_permissions=True)
+        # Find the correct method from api_methods
+        method = next(
+            (m for m in processor.api_methods if m.method_name == "Bill Verify"),
+            None
+        )
+        
+        if not method:
+            frappe.throw("Bill Verify method not found in processor configuration")
+        
+        # Construct URL
+        url = processor.base_url + method.method_end_point
+        
+        # Get API token
+        api_token = next(
+            (config.api_key for config in processor.api_config if config.key_name == "API Token"),
+            None
+        )
+        
+        if not api_token:
+            frappe.throw("API Token not found in processor configuration")
+        
+        provider_id = frappe.db.get_value(
+            "Provider Detail",
+            {"product_name":data.product_name},
+            "product_id"
+        )
 
-            frappe.db.commit()
+        payload = {
+            "api_token": api_token,
+            "provider_id": provider_id,
+            "optional1": data.optional1
+        }
+
+        if data.optional2:
+            payload["optional2"]=data.optional2
+        if data.optional3:
+            payload["optional3"]=data.optional3
+
+        try:
+            # Make API request
+            frappe.log_error("Bill Verify",f"url:{url}, payload:{payload}")
             
-            return {"status": "failed", "message": "Transaction failed"}
+            response = requests.post(url, json=payload, timeout=30)
+            if response.status_code == 200:
+                return response.json()
+            else:
+                return {
+                    "message":"Error in bill verification data fetching"
+                }
+        
+        except Exception as e:
+            frappe.log_error("Error in making bill verify api call",f"{str(e)}")
+            return {"Error":f"{str(e)}"}
 
     except Exception as e:
-        frappe.log_error(f"API Call Failed: {str(e)}", "API Integration")
+        frappe.log_error("Error in bill verification process",f"{str(e)}")
+        return {"Error":f"{str(e)}"}
 
-@frappe.whitelist()
-def make_an_order(product_name: str, identity_number: str, order_amount: float = 0):
-    user = frappe.session.user  # Get logged-in user
-    if not user:
-        return {
-            "You aren't loged in."
-        }
-    # Find the Channel Partner where the user exists in the child table
-    channel_partner = frappe.db.get_value(
-        "Team",  # This is the child table Doctype
-        {"person_name": user},   # Filter using child table directly
-        "parent"  # Parent field gives the Channel Partner linked to this entry
-    )
-    if not channel_partner:
-        return {
-            "You are not member of any company. Please contact administrator."
-        }
-    
 
+@frappe.whitelist(allow_guest=True)
+def order():
     try:
-        order_amount = float(order_amount)
-        product = frappe.get_doc("Product",product_name)
-        
-        partner = frappe.get_doc("Channel Partner",channel_partner)
-        if partner.status == "Blocked":
+        data = frappe._dict(frappe.request.get_json())
+        if not data:
             return {
-                "Your status is blocked. Please contact Administrator."
+                "status":"error",
+                "message":"Please send required fields"
             }
+        
+        partner = frappe.get_doc("Channel Partner",data.user_email)
+
+        if not partner:
+            return {
+                "error":"You are not a registered user. Please do registration first."
+            }
+        
+        wallet = frappe.get_doc("Partner Wallet",partner.name)
+        
+        if wallet.status !="Active":
+            return {
+                "message":"Your wallet is not active. Please contact admininstrator"
+            }
+
+        if wallet.pin != data.pin:
+            return {
+                "Your pin is incorrect. Enter your correct pin."
+            }
+        
+        products = pdt.get_product(data.product_name,data.category)
+
+        if "error" in products:
+            return products
+        
+        product = products["product"]
 
         # Create an order
         order = frappe.get_doc({
             "doctype": "Orders",
-            "order_amount": order_amount,
-            "product_name": product_name,
-            "identity_number": identity_number,
+            "order_amount": data.order_amount,
+            "product_name": data.product_name,
+            "identity_number": data.identity_number,
             "channel": "Android",
             "channel_partner": partner.name,
             "order_status": "Created"
         })
+        order.insert(ignore_permissions=True)
+        frappe.db.commit()
         
         # Send request to payment processor
         processors = frappe.get_all(
@@ -188,197 +171,139 @@ def make_an_order(product_name: str, identity_number: str, order_amount: float =
             filters={"parent":product.name,"is_active":1},
             fields=["name","processor"]
         )
-        for processor in processors:
-
-        processor = frappe.get_doc("Processor", processors[0].processor)
-
-        order.insert(ignore_permissions=True)
-        frappe.db.commit()
         
-        if product.category == "Verification":
-            return document_verification(product,identity_number,processor,order)
-        
-        # method = next((m for m in processor.api_methods if m.method_name == "Make Payment"), None)
 
-        # if not method:
-        #     raise frappe.ValidationError("Make Payment method not found in processor configuration")
+        for temp in processors:
+            processor_name = temp["processor"]  # Get processor function name as a string
 
-        # url = processor.base_url + method.method_end_point
-        # api_token = next((config.api_key for config in processor.api_config if config.key_name == "API Token"), None)
+            # Dynamically get the function from the processor module
+            processor_function = getattr(pcr, processor_name, None)
 
-        # if not api_token:
-        #     raise frappe.ValidationError("API Token not found in processor configuration")
+            if processor_function and callable(processor_function):
+                result = processor_function(order)  # Call the function dynamically
+                processor = result["processor"]
+                payload2 = result["payload"]
+                headers = result["headers"]
+                
+                payload = {
+                    "api_token": payload2["api_token"],
+                    "provider_id": payload2["provider_id"],
+                    "amount": order.order_amount,
+                    "optional1": data.identity_number,
+                    "client_id": order.name,
+                    "environment": "UAT"
+                }
+                if data.optional2:
+                    payload["optional2"]=data.optional2
 
-        # provider_id = next((provider.product_id for provider in processor.providers if provider.product_name == product.product_name), None)
-        
-        # if not provider_id:
-        #     return {
-        #         "error":"Provider Id is not configured"
-        #     }
+                if data.optional3:
+                    payload["optional3"]=data.optional3
 
-        # payload = {
-        #     "api_token": api_token,
-        #     "provider_id": provider_id,
-        #     "amount": order_amount,
-        #     "number": identity_number,
-        #     "client_id": order.name,
-        #     "environment": "UAT"
-        # }
-        # response = requests.get(url, params=payload)
-        
-        # frappe.log_error(
-        #     title="API Request Response",
-        #     message=f"Request Body: {payload}, Response Body: {response.text}",
-        #     reference_doctype="Orders",  # The related document type
-        #     reference_name=order.name  # The related order ID
-        # )
+                if data.optional4:
+                    payload["optional4"]=data.optional4
+                    
+                order.processor = processor.name
+                order.save(ignore_permissions=True)
 
-        # response_data = response.json()
-        # if response_data["status"] == "success":
-        #     order.order_status="Completed"
-        #     order.save(ignore_permissions=True)
-
-        #     frappe.db.commit()
-        #     return {"status": "success", "order_id":order.name}
-        # elif response_data["status"] == "pending":
-        #     frappe.db.commit()
-        #     return {"status": "pending", "message": "Transaction processing", "order_id": order.name, "pay_id": response_data["payid"]}
-        
-        # else:
-        #     order.order_status="Canceled"
-        #     order.save(ignore_permissions=True)
-
-        #     frappe.db.commit()
+                method = frappe.db.get_value(
+                    "API Methods",
+                    {"method_name":"Make Payment"}, 
+                    "method_end_point"
+                )
+                if not method :
+                    frappe.throw(f"{processor.name} doesn't have make payment method")
+                    continue
+                
+                url = processor.base_url + method
             
-        #     return {"status": "failed", "message": "Transaction failed"}
+                response = requests.get(url, params=payload)
+                # response = frappe.make_get_request(url, headers = headers, params = payload)
+                frappe.log_error(
+                    title="API Request Response",
+                    message=f"Request Body: {payload}, Response Body: {response.text}",
+                    reference_doctype="Orders",  # The related document type
+                    reference_name=order.name  # The related order ID
+                )
 
-    except Exception as e:
-        frappe.log_error("Order Processing Error", str(e))
-        frappe.throw(str(e))
+                response_data = response.json()
+                if response_data["status"] == "success":
+                    order.order_status="Completed"
+                    order.save(ignore_permissions=True)
 
+                    frappe.db.commit()
+                    return {"status": "success", "message":'Transaction Successful',"order_id":order.name, "pay_id":response_data["pay_id"]}
 
+                elif response_data["status"] == "pending":
+                    frappe.db.commit()
+                    return {"status": "pending", "message": "Transaction processing", "order_id": order.name, "pay_id": response_data["payid"]}
+                
+                else:
+                    order.order_status="Canceled"
+                    order.save(ignore_permissions=True)
 
-@frappe.whitelist(allow_guest=True)
-def payment_webhook():
-    """Webhook listener for payment status updates from the payment processor."""
-    try:
-        data = json.loads(frappe.request.data)
-        order_id = data.get("client_id")
-        status = data.get("status")
+                    frappe.db.commit()
+                    
+                    return {"status": "failed", "message": "Transaction failed"}
 
-        if not order_id:
-            frappe.throw("Invalid webhook data: Missing Order ID")
-
-        # Fetch order and pending transaction log
-        order = frappe.get_doc("Orders", order_id)
-        
-        if not order or order.order_status!="Processing":
-            frappe.throw("No pending order found with this Order ID")
-
-        txn_log = frappe.get_doc("Payment Transaction Logs",order.transaction_id)
-
-        if not txn_log or txn_log.status!="Processing":
-            frappe.throw("No pending txn found with this order ID")
-
-        if status.lower() == "success":
-            order.order_status = "Completed"
-            order.save(ignore_permissions=True)
-
-        else:
-            order.order_status = "Canceled"
-            order.save(ignore_permissions=True)
-
-        frappe.db.commit()
-        return {"status": "success", "message": "Transaction updated successfully"}
-
-    except Exception as e:
-        frappe.log_error("Webhook Processing Error", str(e))
-        return {"status": "error", "message": str(e)}
-
-
-@frappe.whitelist()
-def topup(amount,channel_partner):
-    amount = float(amount)
-
-    partner_wallet = frappe.get_doc("Partner Wallet",{
-        "channel_partner":channel_partner
-    })
-
-    if partner_wallet.status == "Freeze":
+            else:
+                frappe.log_error(f"Processor function '{processor_name}' not found", "Order Processing Error")
         return {
-            "Title":"Wallet Frozen",
-            "data":" Your wallet is frozen. Please activate to make transactions."
+            "error":"Unable to proceed Bill payment. All processors are busy. Please try again."
         }
-    
-    order = frappe.get_doc({
-        "doctype":"Orders",
-        "product_name":"Wallet Top Up",
-        "order_amount":amount,
-        "channel_partner":channel_partner,
-        "channel":"Web"
-    })
-    order.insert(ignore_permissions=True)
-    frappe.db.commit()
-
-    transaction = frappe.get_doc({
-        "doctype":"Payment Transaction Logs",
-        "source_docname":"Orders",
-        "order_id":order.name,
-        "channel_partner": order.channel_partner,
-        "channel": order.channel,
-        "product_name": order.product_name,
-        "order_amount": order.order_amount,
-        "transaction_amount": order.order_amount,
-        "discount": 0,
-        "transaction_type":"Credit (Top-up)",
-        "status": "Completed"
-    })
-    transaction.insert(ignore_permissions=True)
-    frappe.db.commit()
-
-    order.order_status="Completed"
-    order.transaction_id=transaction.name
-    order.order_remark="Wallet recharged successfully"
-    order.save(ignore_permissions=True)
-
-    frappe.db.commit()
-    return {"Wallet recharged successfully"}
-
-
-
-@frappe.whitelist()
-def bulk_recharge():
-    try:
-        
-        while (True):
-            mobile_number = f"74519{random.randint(10000, 99999)}"  # Ensure uniqueness
-            make_an_order("Airtel", "1", "Scriza", 10, mobile_number, "Tata")
 
     except Exception as e:
-        frappe.log_error("Bulk Recharges Failed", str(e))
-        frappe.throw(str(e))
+        frappe.log_error("Error in processing bill payment",f"{str(e)}")
+        return {"Error":f"{str(e)}"}
 
-    return {"message": "Recharge Successful"}
 
-  
+
 @frappe.whitelist()
-def delete_record():
-    # Unlink transaction IDs in Orders
-    for order in frappe.get_all("Orders", pluck="name"):
-        frappe.db.set_value("Orders", order, "transaction_id", None)
+def import_electricity_providers():
+    try:
+        # Get JSON data from the request
+        data = frappe.request.get_json()
+        
+        # Ensure data is a list
+        if not isinstance(data, list):
+            frappe.throw(_("Invalid data format. Expected a list of providers."))
 
-    frappe.db.commit()
+        for provider in data:
+            # Create a new Electricity Provider document
+            doc = frappe.get_doc({
+                "doctype": "Product",
+                "product_name": provider.get("provider_name"),  # Mapping Product Name to Provider Name
+                "category": "FasTag Bill",  # Mapping Category to Service Name
+                "icon": provider.get("provider_icon"),  # Mapping Icon to Provider Icon
+                "partial_payment_allowed": provider.get("partial_payment_allowed"),
+                "is_active": 1,
+                "bbps_config": []  # Initialize child table
+            })
 
-    # Unlink order IDs in Payment Transaction Logs
-    for txn in frappe.get_all("Payment Transaction Logs", pluck="name"):
-        frappe.db.set_value("Payment Transaction Logs", txn, "order_id", None)
+            doc.append("processors",{
+                "processor":"Scriza"
+            })
+            
+            # Process Validators (BBPS Config Child Table)
+            for validator in provider.get("validators", []):
+                doc.append("bbps_config", {
+                    "config_name": validator.get("name"),  # Mapping name → config_name
+                    "config_value": validator.get("regex"),  # Mapping regex → config_value
+                    "remark": validator.get("message"),  # Mapping message → remark
+                    "required": validator.get("required")
+                })
 
-    frappe.db.commit()
+            # Insert or update the document
+            try:
+                doc.insert(ignore_permissions=True)  # Insert into Frappe DB
+                frappe.db.commit()
+                frappe.logger().info(f"Successfully inserted: {doc.product_name}")
+            except frappe.DuplicateEntryError:
+                frappe.logger().warning(f"Skipping duplicate: {doc.product_name}")
+            except Exception as e:
+                frappe.logger().error(f"Error inserting {doc.product_name}: {str(e)}")
 
-    # Delete Payment Transaction Logs first (child table)
-    frappe.db.delete("Payment Transaction Logs")
-
-    # Delete Orders (parent table)
-    frappe.db.delete("Orders")
-
-    frappe.db.commit()
+        return {"status": "success", "message": "Electricity providers imported successfully."}
+    
+    except Exception as e:
+        frappe.logger().error(f"Error in import_electricity_providers: {str(e)}")
+        frappe.throw(_("Failed to import providers. Error: {0}").format(str(e)))

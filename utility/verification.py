@@ -58,7 +58,7 @@ def pan_card(product_name: str, identity_number: str):
         doc.insert()
         frappe.db.commit()
 
-        method = next((m for m in processor.api_methods if m.method_name == "Pan Card Verification"), None)
+        method = next((m for m in processor.api_methods if m.method_name == "PanCard Verification"), None)
 
         if not method:
             raise frappe.ValidationError("Pan Card Verification method not found in processor configuration")
@@ -68,13 +68,13 @@ def pan_card(product_name: str, identity_number: str):
         # Missing API endpoint definition - adding it
         url = processor.base_url + method.method_end_point
         headers = {
-            "Authorization": f"Bearer {api_token}",
+            "Authorization": f"Basic {api_token}",
             "Content-Type": "application/json"
         }
         
         payload = {
             "client_ref_num": order.name,
-            "pan": doc.pan_card_number
+            "pan": doc.pan_card_number,
         }
 
         #response = frappe.make_post_request(url, data=payload, headers=headers)
@@ -202,7 +202,7 @@ def aadhaar_card(product_name: str, identity_number: str):
         doc.insert()
         frappe.db.commit()
 
-        method = next((m for m in processor.api_methods if m.method_name == "Aadhaar Card Verification"), None)
+        method = next((m for m in processor.api_methods if m.method_name == "AadhaarCard Verification"), None)
 
         if not method:
             raise frappe.ValidationError("Aadhar Card Verification method not found in processor configuration")

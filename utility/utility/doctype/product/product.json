@@ -1,5 +1,6 @@
 {
  "actions": [],
+ "allow_import": 1,
  "allow_rename": 1,
  "autoname": "field:product_name",
  "creation": "2025-02-08 12:21:57.800526",
@@ -12,14 +13,15 @@
   "column_break_fgdg",
   "category",
   "seller",
+  "partial_payment_allowed",
   "column_break_pnvm",
   "logo",
   "offers",
   "is_active",
   "processors_section",
-  "table_tuna",
+  "processors",
   "bbps_fields_section",
-  "table_oxai"
+  "bbps_config"
  ],
  "fields": [
   {
@@ -30,7 +32,7 @@
   },
   {
    "fieldname": "icon",
-   "fieldtype": "Data",
+   "fieldtype": "Attach",
    "label": "Icon",
    "options": "URL"
   },
@@ -78,11 +80,6 @@
    "label": "BBPS Fields"
   },
   {
-   "fieldname": "table_oxai",
-   "fieldtype": "Table",
-   "options": "ADDON Config"
-  },
-  {
    "default": "0",
    "fieldname": "is_active",
    "fieldtype": "Check",
@@ -94,14 +91,27 @@
    "label": "Processors"
   },
   {
-   "fieldname": "table_tuna",
+   "fieldname": "bbps_config",
    "fieldtype": "Table",
+   "label": "BBPS Config",
+   "options": "ADDON Config"
+  },
+  {
+   "fieldname": "processors",
+   "fieldtype": "Table",
+   "label": "Processors",
    "options": "Processor Table"
+  },
+  {
+   "default": "0",
+   "fieldname": "partial_payment_allowed",
+   "fieldtype": "Check",
+   "label": "Partial Payment Allowed"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-02-18 10:36:23.131702",
+ "modified": "2025-04-02 18:32:49.598227",
  "modified_by": "Administrator",
  "module": "Utility",
  "name": "Product",

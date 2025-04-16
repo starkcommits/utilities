@@ -1,0 +1,85 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:mobile_number",
+ "creation": "2025-04-07 16:12:50.666377",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "mobile_operator_section",
+  "mobile_number",
+  "column_break_kzwd",
+  "product_name",
+  "column_break_ofap",
+  "circle_id",
+  "column_break_gxcx",
+  "state_name"
+ ],
+ "fields": [
+  {
+   "fieldname": "mobile_operator_section",
+   "fieldtype": "Section Break",
+   "label": "Mobile Operator"
+  },
+  {
+   "fieldname": "mobile_number",
+   "fieldtype": "Data",
+   "label": "Mobile Number",
+   "unique": 1
+  },
+  {
+   "fieldname": "column_break_kzwd",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "circle_id",
+   "fieldtype": "Data",
+   "label": "Circle ID"
+  },
+  {
+   "fieldname": "column_break_ofap",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "product_name",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Product Name",
+   "options": "Product"
+  },
+  {
+   "fieldname": "column_break_gxcx",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "state_name",
+   "fieldtype": "Data",
+   "label": "State Name"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-04-07 18:11:27.394282",
+ "modified_by": "Administrator",
+ "module": "Utility",
+ "name": "Users Operator",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

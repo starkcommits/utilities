@@ -154,10 +154,23 @@ api = {
 		"utility.verification.pan_card",
 		"utility.verification.aadhaar_card",
 		"utility.recharge.order",
+		"utility.recharge.find_operator",
+		"utility.dth_recharge.order",
 		"utility.name_matcher.match_names",
 		"utility.face_matcher.match_faces",
 		"utility.verification.gst",
-		"utility.verification.mca"
+		"utility.verification.mca",
+		"utility.api.import_electricity_providers",
+		"utility.api.get_product",
+		"utility.api.verify_bill",
+		"utility.api.order",
+		"utility.auth.signup",
+		"utility.auth.mark_kyc_done",
+		"utility.wallet_utils.get_balance",
+		"utility.wallet_utils.update_pin",
+		"utility.wallet_utils.topup",
+		"utility.wallet_utils.withdraw",
+		"utility.transaction.logs"
 	]
 }
 # Scheduled Tasks
@@ -192,6 +205,9 @@ api = {
 # override_whitelisted_methods = {
 # 	"frappe.desk.doctype.event.event.get_events": "utility.event.get_events"
 # }
+override_whitelisted_methods = {
+    "frappe.www.login.login": "utility.auth.custom_login"
+}
 #
 # each overriding function accepts a `data` argument;
 # generated from the base implementation of the doctype dashboard,

@@ -1,7 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "format:{YYYY}{MM}{#######}",
+ "autoname": "field:channel_partner",
  "creation": "2025-02-18 17:46:58.042981",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -9,6 +9,8 @@
   "channel_partner",
   "column_break_gccq",
   "balance",
+  "column_break_muts",
+  "pin",
   "column_break_axcs",
   "status",
   "including_section",
@@ -20,7 +22,8 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Channel Partner",
-   "options": "Channel Partner"
+   "options": "Channel Partner",
+   "unique": 1
   },
   {
    "fieldname": "balance",
@@ -52,15 +55,24 @@
   {
    "fieldname": "column_break_axcs",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_muts",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "pin",
+   "fieldtype": "Int",
+   "label": "PIN"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-02-21 11:54:12.604021",
+ "modified": "2025-04-04 12:10:34.811164",
  "modified_by": "Administrator",
  "module": "Utility",
  "name": "Partner Wallet",
- "naming_rule": "Expression",
+ "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [
   {
